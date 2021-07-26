@@ -5,7 +5,7 @@ import './style.css'
 
 const url = 'http://localhost:3000/persona/';
 
-// DELETE Persona
+// DELETE Persona (funciona, pero todas las personas tienen libros asociados y el mensaje solo aparece en consola)
 const BorrarPersona = async (personaID) => {
     try {
         const respuesta = await axios.delete(url+personaID);
@@ -48,7 +48,7 @@ export default function ListadoPersona() {
                             <button onClick={() => BorrarPersona(persona.id)}>BORRAR</button>
                         </li>
                     </ul>
-                </div>
+                </div>        
         )
     })
 
