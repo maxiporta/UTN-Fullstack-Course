@@ -10,9 +10,6 @@ function Navbar(){
     <Link to="/libro/listadolibro" className="link left">Listado de libros</Link>
     <Link to="/categoria/listadocategoria" className="link middle">Listado de generos</Link> 
     <Link to="/persona/listadopersona" className="link right">Listado de personas</Link>
-
-    {/* INGRESOS */}
-    <Link to="/persona/ingresarpersona" className="link right">Ingresar nueva persona</Link>
    
    </div>
     </div>)

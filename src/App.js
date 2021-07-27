@@ -7,7 +7,6 @@ import Navbar from './components/home/navbar';
 import ListadoCategoria from './components/categoria/listadocategoria'
 import ListadoLibro from './components/libro/listadolibro.jsx';
 import ListadoPersona from './components/persona/listadopersona'
-import IngresarPersona from './components/persona/ingresarpersona';
 
 function App() {
   return (
@@ -16,8 +15,6 @@ function App() {
         <Route exact path="/libro/listadolibro" component={ListadoLibro} />
         <Route exact path="/persona/listadopersona" component={ListadoPersona} />
         <Route exact path="/categoria/listadocategoria" component={ListadoCategoria} />
-
-        <Route exact path="/persona/ingresarpersona" component={IngresarPersona} />
     </Router>
   );
 

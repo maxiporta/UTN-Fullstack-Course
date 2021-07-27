@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './style.css'
 
+import IngresarPersona from './ingresarpersona';
+
 
 const url = 'http://localhost:3000/persona/';
 
@@ -52,5 +54,10 @@ export default function ListadoPersona() {
         )
     })
 
-    return(<>{listaPersona}</>);
+    return(
+    <>
+        <IngresarPersona/>
+        {listaPersona}
+    </>
+    );
     }
