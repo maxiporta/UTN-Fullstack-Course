@@ -19,7 +19,8 @@ export default function ListadoCategoria() {
 
     const listaCategoria = data.map((categoria) => {
       var infill = <><p>{categoria.nombre}</p>
-                    <Boton class = "btn btn-danger" text="BORRAR" funcion={() => handleDelete(url + categoria.id, okText)}/></>
+                    <Boton class = "btn btn-primary" text="MODIFICAR"/>
+                    <Boton class = "btn btn-danger" text="BORRAR" function={() => handleDelete(url + categoria.id, okText)}/></>
       return (
         <Card infill = {infill} key ={"categoria" + categoria.id}/>
       );

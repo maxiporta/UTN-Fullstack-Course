@@ -22,7 +22,8 @@ export default function ListadoPersona() {
                         <p>{"Apellido: " + persona.apellido}</p>
                         <p>{"Alias: "    + persona.alias}</p>
                         <p>{"Email: "    + persona.email}</p>
-                        <Boton class = "btn btn-danger" text="BORRAR" funcion={() => handleDelete(url + persona.id, okText)}/></>
+                        <Boton class = "btn btn-primary" text="MODIFICAR"/>
+                        <Boton class = "btn btn-danger" text="BORRAR" function={() => handleDelete(url + persona.id, okText)}/></>
         return (
             <Card infill = {infill} key ={"persona" + persona.id}/>
         );

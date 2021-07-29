@@ -20,8 +20,8 @@ export default function ListadoLibro() {
     const listaLibro = data.map((libro) => {
         var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion}/>
                         <Boton class = "btn btn-primary" text = "MODIFICAR"/>
-                        <Boton class = "btn btn-danger" text = "PRESTAR"/>
-                        <Boton class = "btn btn-outline-primary" text = "BORRAR" function={() => handleDelete(url + libro.id, okText)}/></>
+                        <Boton class = "btn btn-outline-primary" text = "PRESTAR"/>
+                        <Boton class = "btn btn-danger" text = "BORRAR" function={() => handleDelete(url + libro.id, okText)}/></>
         return ( 
             // eslint-disable-next-line react/style-prop-object
             <Card infill = {infill} key ={"libro" + libro.id}/>
