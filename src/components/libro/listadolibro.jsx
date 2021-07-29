@@ -37,26 +37,27 @@ export default function ListadoLibro() {
         fetchData();
       }, []);
     
-
+      
     const listaLibro = data.map((libro) => {
-        return (
-                <div className="libros">
-                    <ul className="libros-list">
-                        <li className="libro-detail">
-                            <p>{"Nombre: " + libro.nombre}</p>
-                            <p>{"Descripcion: " + libro.descripcion}</p>
-                            <p>{"Categoria ID: " + libro.categoria_id}</p>
-                            <button onClick={() => BorrarLibro(libro.id)}>BORRAR</button>
-                        </li>
-                    </ul>
-                </div>        
+        return ( 
+            // eslint-disable-next-line react/style-prop-object
+            <div class="card animated fadeIn fast" Style={{marginTop:"1rem"}}>
+                <img class="card-img-top img-fluid img" src="..." alt=""/>
+                <div class="card-body">
+                    <h5 class="card-title">{libro.nombre}</h5>
+                    <p class="card-text">{libro.descripcion}</p>
+                    <button class="btn btn-primary">MODIFICAR</button>
+                    <button class="btn btn-danger">PRESTAR</button>
+                    <button class="btn btn-outline-primary" onClick={() => BorrarLibro(libro.id)}>BORRAR</button>
+                </div>
+            </div>      
         )
     })
 
     return(
     <>
         <IngresarLibro/>
-        {listaLibro}
+        <div className="container">{listaLibro}</div>
     </>
     );
     }

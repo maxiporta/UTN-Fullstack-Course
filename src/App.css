@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+body{
+  text-align: center;
+  background: transparent url("https://images.alphacoders.com/154/154103.jpg") no-repeat local 50% 50%;
+  background-size:cover;
+  background-attachment: fixed;
+}
+
+.card{
+  display: grid;
+  grid-template-rows : 33% 33% 33%
+}

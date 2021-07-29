@@ -4,7 +4,6 @@ import axios from 'axios';
 const url = 'http://localhost:3000/categoria'
 
 
-//Formulario para ingresar nuevo libro, NO ANDA
 export default function IngresarCategoria() {
 
     const [nombre, setNombre] = useState('');

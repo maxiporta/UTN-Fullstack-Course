@@ -4,12 +4,12 @@ import './style.css'
 
 import IngresarCategoria from './ingresarcategoria';
 
+const url = 'http://localhost:3000/categoria/';
 
 export default function ListadoCategoria() {
     const [data, setdata] = useState([]);
   
     const fetchData = async() => {
-      const url = 'http://localhost:3000/categoria/';
       const respuesta = await axios.get(url);
       if (respuesta.status === 200) {
         setdata(respuesta.data);
@@ -25,7 +25,8 @@ export default function ListadoCategoria() {
         <div className="libros">
           <ul className="libros-list"> 
               <li className="libro-detail">{categoria.nombre}</li>
-              <li className="libro-detail">Categoria ID: {categoria.id}</li>
+              <button onClick={() => BorrarCategoria(categoria.id)}>BORRAR</button>
+              
           </ul>
         </div>
       )
@@ -38,3 +39,17 @@ export default function ListadoCategoria() {
       </>
       );
       }
+
+      // BORRAR CATEGORIA
+      const BorrarCategoria = async (categoriaID) => {
+        try {
+            const respuesta = await axios.delete(url+categoriaID);
+            
+            if(respuesta.status === 200){
+                alert("Genero borrado con exito");
+            }
+    
+        } catch (err) {
+            console.log('Error', err.message);
+        }
+    }
