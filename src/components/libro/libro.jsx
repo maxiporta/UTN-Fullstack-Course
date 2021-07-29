@@ -12,9 +12,12 @@ export default function libro(props) {
             <div class="page4"></div>
             <div class="page3"></div>
             <div class="page2"></div>
-            <div class="page1"></div>
+            <div class="page1">
+                <p>prestado a, {props.persona}</p>
+            </div>
             <div class="front">
                 <p>{props.nombre}</p>
+                <p class="categoria">{props.categoria}</p>
             </div>
         </div>
     );

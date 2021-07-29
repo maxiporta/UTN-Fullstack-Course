@@ -103,3 +103,9 @@ h3{
 ::placeholder{
   opacity: 0.5;
 }
+.categoria{
+  height:10%;
+  position:absolute; 
+  bottom:0px;
+  color:black;
+}
