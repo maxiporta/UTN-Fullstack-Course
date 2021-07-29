@@ -29,7 +29,7 @@ export default function IngresarLibro() {
                 <EntradaDeTexto className="ingreso_input" id="nombre" value={nombre} placeholder="Nombre"  function={e => setNombre(e.target.value)}/>
                 <EntradaDeTexto className="ingreso_input" id="categoria" value={categoria} placeholder="Genero"  function={e => setCategoria_id(e.target.value)}/>
                 <EntradaDeTexto className="ingreso_input" id="descripcion" value={descripcion} placeholder="Descripcion"  function={e => setDescripcion(e.target.value)}/>
-
+                
                 <Boton text="Enviar" function={handleSubmit}/>
                 </div>
             </form>

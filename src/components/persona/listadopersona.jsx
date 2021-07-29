@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import Boton from '../utility/boton';
+import Card from '../utility/card';
 import './style.css'
 
 import IngresarPersona from './ingresarpersona';
@@ -39,25 +41,19 @@ export default function ListadoPersona() {
     
 
     const listaPersona = data.map((persona) => {
+        var infill = <><p>{"Nombre: "   + persona.nombre}</p>
+                        <p>{"Apellido: " + persona.apellido}</p>
+                        <p>{"Alias: "    + persona.alias}</p>
+                        <p>{"Email: "    + persona.email}</p>
+                        <Boton class = "btn btn-danger" text="BORRAR" funcion={() => BorrarPersona(persona.id)}/></>
         return (
-                <div className="libros">
-                    <ul className="libros-list">
-                        <li className="libro-detail">
-                            <p>{"Nombre: "   + persona.nombre}</p>
-                            <p>{"Apellido: " + persona.apellido}</p>
-                            <p>{"Alias: "    + persona.alias}</p>
-                            <p>{"Email: "    + persona.email}</p>
-                            <button onClick={() => BorrarPersona(persona.id)}>BORRAR</button>
-                        </li>
-                    </ul>
-                </div>        
+            <Card infill = {infill}/>
         )
     })
-
     return(
     <>
         <IngresarPersona/>
-        {listaPersona}
+        <div className="container">{listaPersona}</div>
     </>
     );
-    }
+}

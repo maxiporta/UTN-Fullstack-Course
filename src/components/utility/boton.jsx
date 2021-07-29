@@ -4,7 +4,11 @@ export default function boton(props) {
 
     return (
         <>
-            <button type="submit" onClick={props.function}>{props.text}</button>
+            <button className={props.class} type="submit" onClick={props.function}>{props.text}</button>
         </>
     );
 }
+boton.defaultProps = {
+    class: "",
+    function:null
+};

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Boton from '../utility/boton';
+import Card from '../utility/card';
 import './style.css'
 
 import IngresarCategoria from './ingresarcategoria';
@@ -21,24 +23,19 @@ export default function ListadoCategoria() {
       }, []);
 
     const listaCategoria = data.map((categoria) => {
+      var infill = <><p>{categoria.nombre}</p>
+                    <Boton class = "btn btn-danger" text="BORRAR" funcion={() => BorrarCategoria(categoria.id)}/></>
       return (
-        <div className="libros">
-          <ul className="libros-list"> 
-              <li className="libro-detail">{categoria.nombre}</li>
-              <button onClick={() => BorrarCategoria(categoria.id)}>BORRAR</button>
-              
-          </ul>
-        </div>
+        <Card infill = {infill}/>
       )
     })
-
     return(
       <>
           <IngresarCategoria/>
-          {listaCategoria}
+          <div className="container">{listaCategoria}</div>
       </>
-      );
-      }
+    );
+}
 
       // BORRAR CATEGORIA
       const BorrarCategoria = async (categoriaID) => {
