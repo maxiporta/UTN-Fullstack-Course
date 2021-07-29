@@ -6,7 +6,6 @@ export default async function handleDelete(url, okText) {
         if(respuesta.status === 200){
             alert(okText);
         }
-
     } catch (err) {
         console.log('Error', err.message);
     }
