@@ -7,18 +7,21 @@ import handleGet from '../../middleware/get';
 import handleDelete from '../../middleware/delete';
 import handlePut from '../../middleware/put';
 import IngresarLibro from './ingresarlibro';
+import { useDispatch, useSelector } from 'react-redux';
 
 const url = 'http://localhost:3000/libro/';
 
 export default function ListadoLibro() {
     const [data, setdata] = useState([]);
+    const datared = useSelector((state) => state.libro);
+    const dispatch = useDispatch();
     const okText = "Libro borrado con exito";
     const form = {
         nombre: "hola"
     }
     
     useEffect(() => {
-        handleGet(url, data, setdata);
+        handleGet(url, datared, setdata);
       }, [data]);
     const listaLibro = data.map((libro) => {
         var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion}/>

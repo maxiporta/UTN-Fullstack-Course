@@ -6,6 +6,7 @@ import Boton from '../utility/boton';
 import Card from '../utility/card';
 import EntradaDeTexto from '../utility/input';
 import './style.css'
+import { useDispatch, useSelector } from 'react-redux';
 
 import IngresarPersona from './ingresarpersona';
 
@@ -13,6 +14,8 @@ const url = 'http://localhost:3000/persona/';
 
 export default function ListadoPersona() {
     const [data, setdata] = useState([]);
+    const datared = useSelector((state) => state.libro);
+    const dispatch = useDispatch();
     const okText = "Persona Borrada";
     const form = {
         nombre: "hola",
@@ -20,7 +23,7 @@ export default function ListadoPersona() {
         alias:"hola"
     };
     useEffect(() => {
-        handleGet(url, data, setdata);
+        handleGet(url, datared, setdata);
       }, [data]);
     
     const listaPersona = data.map((persona) => {

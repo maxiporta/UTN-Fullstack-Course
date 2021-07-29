@@ -5,6 +5,7 @@ import handlePut from '../../middleware/put';
 import Boton from '../utility/boton';
 import Card from '../utility/card';
 import './style.css'
+import { useDispatch, useSelector } from 'react-redux';
 
 import IngresarCategoria from './ingresarcategoria';
 
@@ -12,12 +13,14 @@ const url = 'http://localhost:3000/categoria/';
 
 export default function ListadoCategoria() {
     const [data, setdata] = useState([]);
+    const datared = useSelector((state) => state.libro);
+    const dispatch = useDispatch();
     const okText = "Genero borrado con exito";
     const form = {
         descripcion: "hola"
     };
     useEffect(() => {
-      handleGet(url, data, setdata);
+      handleGet(url, datared, setdata);
     }, [data]);
 
     const listaCategoria = data.map((categoria) => {
