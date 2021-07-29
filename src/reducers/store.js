@@ -8,12 +8,11 @@ const estadoInicial  = {
     libro: []
 };
 
-
 function reducer(state = estadoInicial, action) {
     switch (action.type) {
-        case 'ADDPERSON':
+        case 'UPDATEDB':
             return{
-                persona: {...action.data}
+                persona: [...action.dato]
             }
         case 'DECREMENTAR':
             return {

@@ -19,7 +19,6 @@ export default function ListadoLibro() {
     const form = {
         nombre: "hola"
     }
-    
     useEffect(() => {
         handleGet(url, setdata);
       }, [data]);
