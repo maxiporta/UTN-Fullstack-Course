@@ -19,11 +19,30 @@ export default function ListadoLibro() {
     const form = {
         nombre: "hola"
     }
+    //chanchada
+    const [datap, setDatap] = useState([]);
+    const [datac, setDatac] = useState([]);
+    useEffect(() => {
+        handleGet("http://localhost:3000/persona", setDatap);
+        handleGet("http://localhost:3000/categoria", setDatac);
+    }, []);
+    function nameToX(prop, key, name, X){
+        for(var i in prop) {
+            if(prop[i][key]===name)
+            {
+                return prop[i][X];
+            }
+        }
+        return null;
+    }
+    //mejorar
+
     useEffect(() => {
         handleGet(url, setdata);
       }, [data]);
+
     const listaLibro = data.map((libro) => {
-        var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={libro.persona_id} categoria={libro.categoria_id} />
+        var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(datap,'id',libro.persona_id,'nombre')} categoria={nameToX(datac,'id',libro.categoria_id,'nombre')} />
                         <Boton class = "btn btn-primary" text="MODIFICAR" function={() => handlePut(url + libro.id, okText, form)}/>
                         <Boton class = "btn btn-outline-primary" text = "PRESTAR"/>
                         <Boton class = "btn btn-danger" text = "BORRAR" function={() => handleDelete(url + libro.id, okText)}/></>

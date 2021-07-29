@@ -14,22 +14,16 @@ export default function IngresarLibro() {
     const [descripcion, setDescripcion] = useState('');
     const [categoria, setCategoria_id] = useState('');
     const [persona, setPersona] = useState('');
+    const okText = "Libro ingresado";
+    
+    
+    //chanchada
     const [datap, setDatap] = useState([]);
     const [datac, setDatac] = useState([]);
-    const okText = "Libro ingresado";
     useEffect(() => {
         handleGet("http://localhost:3000/persona", setDatap);
         handleGet("http://localhost:3000/categoria", setDatac);
     }, []);
-    const form = {
-        nombre: nombre,
-        descripcion: descripcion,
-        categoria_id: categoria,
-        persona_id: persona 
-    };
-    const handleSubmit = async (e) => {
-        handleSubmitPost(e, form, url, okText);
-    }
     function propName(prop, value){
         let string = [];
         for(var i in prop) {
@@ -45,6 +39,17 @@ export default function IngresarLibro() {
             }
         }
         return null;
+    }
+    //mejorar
+
+    const form = {
+        nombre: nombre,
+        descripcion: descripcion,
+        categoria_id: categoria,
+        persona_id: persona 
+    };
+    const handleSubmit = async (e) => {
+        handleSubmitPost(e, form, url, okText);
     }
     return (
         <>
