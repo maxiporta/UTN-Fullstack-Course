@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import handleGet from '../../middleware/get';
 import Boton from '../utility/boton';
 import Card from '../utility/card';
 import './style.css'
@@ -26,20 +27,14 @@ const BorrarPersona = async (personaID) => {
 
 export default function ListadoPersona() {
     const [data, setdata] = useState([]);
-  
-    const fetchData = async() => {
-
-      const respuesta = await axios.get(url);
-      if (respuesta.status === 200) {
-        setdata(respuesta.data);
-      }
-    };
 
     useEffect(() => {
-        fetchData();
+        handleGet(url, data, setdata);
       }, []);
+      useEffect(() => {
+        handleGet(url, data, setdata);
+      }, [data]);
     
-
     const listaPersona = data.map((persona) => {
         var infill = <><p>{"Nombre: "   + persona.nombre}</p>
                         <p>{"Apellido: " + persona.apellido}</p>

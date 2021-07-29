@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import handleSubmitPost from '../utility/post';
+import handleSubmitPost from "../../middleware/post";
 import Boton from '../utility/boton';
 import EntradaDeTexto from '../utility/input';
 const url = 'http://localhost:3000/persona'

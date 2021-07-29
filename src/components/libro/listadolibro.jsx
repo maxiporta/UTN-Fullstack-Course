@@ -4,6 +4,7 @@ import './style.css'
 import Boton from '../utility/boton';
 import Libro from './libro';
 import Card from '../utility/card';
+import handleGet from '../../middleware/get';
 import IngresarLibro from './ingresarlibro';
 
 
@@ -26,18 +27,13 @@ const BorrarLibro = async (libroID) => {
 
 export default function ListadoLibro() {
     const [data, setdata] = useState([]);
-  
-    const fetchData = async() => {
 
-      const respuesta = await axios.get(url);
-      if (respuesta.status === 200) {
-        setdata(respuesta.data);
-      }
-    };
     useEffect(() => {
-        fetchData();
+        handleGet(url, data, setdata);
       }, []);
-    
+      useEffect(() => {
+        handleGet(url, data, setdata);
+      }, [data]);
       
     const listaLibro = data.map((libro) => {
         var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion}/>
