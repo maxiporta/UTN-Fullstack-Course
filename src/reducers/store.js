@@ -9,17 +9,17 @@ const estadoInicial  = {
 };
 
 
-function reducer(state = estadoInicial, action, url, data) {
+function reducer(state = estadoInicial, action) {
     switch (action.type) {
-        case 'GET':
-            handleGet(url, data);
+        case 'ADDPERSON':
+            return{
+                persona: {...action.data}
+            }
         case 'DECREMENTAR':
             return {
-                numero: state.numero - 1,
             };
         case 'RESET':
             return {
-                numero: 0
             }
         default:
             return state;

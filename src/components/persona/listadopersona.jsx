@@ -14,7 +14,7 @@ const url = 'http://localhost:3000/persona/';
 
 export default function ListadoPersona() {
     const [data, setdata] = useState([]);
-    const datared = useSelector((state) => state.libro);
+    const datared = useSelector((state) => state.persona);
     const dispatch = useDispatch();
     const okText = "Persona Borrada";
     const form = {
@@ -23,9 +23,9 @@ export default function ListadoPersona() {
         alias:"hola"
     };
     useEffect(() => {
-        handleGet(url, datared, setdata);
-      }, [data]);
-    
+        handleGet(url, setdata);
+        dispatch({type:"ADDPERSON", data: data});
+    }, [data]);
     const listaPersona = data.map((persona) => {
         let texto = <p>{"Nombre: "   + persona.nombre}</p>
         var infill = <>{texto}

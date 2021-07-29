@@ -13,14 +13,14 @@ const url = 'http://localhost:3000/categoria/';
 
 export default function ListadoCategoria() {
     const [data, setdata] = useState([]);
-    const datared = useSelector((state) => state.libro);
+    const datared = useSelector((state) => state.categoria);
     const dispatch = useDispatch();
     const okText = "Genero borrado con exito";
     const form = {
         descripcion: "hola"
     };
     useEffect(() => {
-      handleGet(url, datared, setdata);
+      handleGet(url, setdata);
     }, [data]);
 
     const listaCategoria = data.map((categoria) => {

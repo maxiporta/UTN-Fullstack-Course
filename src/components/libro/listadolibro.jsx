@@ -21,7 +21,7 @@ export default function ListadoLibro() {
     }
     
     useEffect(() => {
-        handleGet(url, datared, setdata);
+        handleGet(url, setdata);
       }, [data]);
     const listaLibro = data.map((libro) => {
         var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion}/>

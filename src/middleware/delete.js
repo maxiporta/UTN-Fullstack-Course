@@ -7,6 +7,7 @@ export default async function handleDelete(url, okText) {
             alert(okText);
         }
     } catch (err) {
+        alert(err.response.data);
         console.log('Error', err.message);
     }
 }
