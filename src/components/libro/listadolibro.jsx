@@ -1,37 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
 import './style.css'
 import Boton from '../utility/boton';
 import Libro from './libro';
 import Card from '../utility/card';
 import handleGet from '../../middleware/get';
+import handleDelete from '../../middleware/delete';
 import IngresarLibro from './ingresarlibro';
-
 
 const url = 'http://localhost:3000/libro/';
 
-// DELETE Libro
-const BorrarLibro = async (libroID) => {
-    try {
-        const respuesta = await axios.delete(url+libroID);
-        
-        if(respuesta.status === 200){
-            alert("Libro borrado con exito");
-        }
-
-    } catch (err) {
-        console.log('Error', err.message);
-    }
-}
-
-
 export default function ListadoLibro() {
     const [data, setdata] = useState([]);
+    const okText = "Libro borrado con exito";
 
     useEffect(() => {
-        handleGet(url, data, setdata);
-      }, []);
-      useEffect(() => {
         handleGet(url, data, setdata);
       }, [data]);
       
@@ -39,12 +21,12 @@ export default function ListadoLibro() {
         var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion}/>
                         <Boton class = "btn btn-primary" text = "MODIFICAR"/>
                         <Boton class = "btn btn-danger" text = "PRESTAR"/>
-                        <Boton class = "btn btn-outline-primary" text = "BORRAR" function={() => BorrarLibro(libro.id)}/></>
+                        <Boton class = "btn btn-outline-primary" text = "BORRAR" function={() => handleDelete(url + libro.id, okText)}/></>
         return ( 
             // eslint-disable-next-line react/style-prop-object
-            <Card infill = {infill}/>
-        )
-    })
+            <Card infill = {infill} key ={"libro" + libro.id}/>
+        );
+    });
     return(
         <>
             <IngresarLibro/>

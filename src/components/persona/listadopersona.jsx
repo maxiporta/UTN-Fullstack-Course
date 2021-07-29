@@ -1,37 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
 import handleGet from '../../middleware/get';
+import handleDelete from '../../middleware/delete';
 import Boton from '../utility/boton';
 import Card from '../utility/card';
 import './style.css'
 
 import IngresarPersona from './ingresarpersona';
 
-
 const url = 'http://localhost:3000/persona/';
-
-// DELETE Persona (funciona, pero todas las personas tienen libros asociados y el mensaje solo aparece en consola)
-const BorrarPersona = async (personaID) => {
-    try {
-        const respuesta = await axios.delete(url+personaID);
-        
-        if(respuesta.status === 200){
-            alert("Persona Borrada");
-        }
-
-    } catch (err) {
-        console.log('Error', err.message);
-    }
-}
-
 
 export default function ListadoPersona() {
     const [data, setdata] = useState([]);
+    const okText = "Persona Borrada";
 
     useEffect(() => {
-        handleGet(url, data, setdata);
-      }, []);
-      useEffect(() => {
         handleGet(url, data, setdata);
       }, [data]);
     
@@ -40,11 +22,11 @@ export default function ListadoPersona() {
                         <p>{"Apellido: " + persona.apellido}</p>
                         <p>{"Alias: "    + persona.alias}</p>
                         <p>{"Email: "    + persona.email}</p>
-                        <Boton class = "btn btn-danger" text="BORRAR" funcion={() => BorrarPersona(persona.id)}/></>
+                        <Boton class = "btn btn-danger" text="BORRAR" funcion={() => handleDelete(url + persona.id, okText)}/></>
         return (
-            <Card infill = {infill}/>
-        )
-    })
+            <Card infill = {infill} key ={"persona" + persona.id}/>
+        );
+    });
     return(
     <>
         <IngresarPersona/>
