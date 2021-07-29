@@ -44,8 +44,22 @@ export default function ListadoLibro() {
             <div class="card animated fadeIn fast" Style={{marginTop:"1rem"}}>
                 <img class="card-img-top img-fluid img" src="..." alt=""/>
                 <div class="card-body">
-                    <h5 class="card-title">{libro.nombre}</h5>
-                    <p class="card-text">{libro.descripcion}</p>
+                {// libro
+                }
+                <div class="book">
+                    <div class="back"></div>
+                    <div class="page6">
+                        <p>{libro.descripcion}</p>
+                    </div>
+                    <div class="page5"></div>
+                    <div class="page4"></div>
+                    <div class="page3"></div>
+                    <div class="page2"></div>
+                    <div class="page1"></div>
+                    <div class="front">
+                        <p>{libro.nombre}</p>
+                    </div>
+                    </div>
                     <button class="btn btn-primary">MODIFICAR</button>
                     <button class="btn btn-danger">PRESTAR</button>
                     <button class="btn btn-outline-primary" onClick={() => BorrarLibro(libro.id)}>BORRAR</button>
