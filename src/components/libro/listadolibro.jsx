@@ -42,9 +42,19 @@ export default function ListadoLibro() {
       }, [data]);
 
     const listaLibro = data.map((libro) => {
+        let prestar = "PRESTAR";
+        if(libro.persona_id==null)
+        {
+            prestar="PRESTAR";
+        }
+        else
+        {
+            prestar="DEVOLVER"
+        }
+
         var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(datap,'id',libro.persona_id,'nombre')} categoria={nameToX(datac,'id',libro.categoria_id,'nombre')} />
                         <Boton class = "btn btn-primary" text="MODIFICAR" function={() => handlePut(url + libro.id, okText, form)}/>
-                        <Boton class = "btn btn-outline-primary" text = "PRESTAR"/>
+                        <Boton class = "btn btn-outline-primary" text = {prestar}/>
                         <Boton class = "btn btn-danger" text = "BORRAR" function={() => handleDelete(url + libro.id, okText)}/></>
         return ( 
             // eslint-disable-next-line react/style-prop-object
