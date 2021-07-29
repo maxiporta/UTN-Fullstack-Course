@@ -24,7 +24,7 @@ export default function ListadoLibro() {
         handleGet(url, setdata);
       }, [data]);
     const listaLibro = data.map((libro) => {
-        var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={libro.persona} categoria={libro.categoria} />
+        var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={libro.persona_id} categoria={libro.categoria_id} />
                         <Boton class = "btn btn-primary" text="MODIFICAR" function={() => handlePut(url + libro.id, okText, form)}/>
                         <Boton class = "btn btn-outline-primary" text = "PRESTAR"/>
                         <Boton class = "btn btn-danger" text = "BORRAR" function={() => handleDelete(url + libro.id, okText)}/></>

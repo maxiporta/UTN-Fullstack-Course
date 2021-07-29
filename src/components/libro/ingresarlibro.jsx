@@ -25,7 +25,7 @@ export default function IngresarLibro() {
         nombre: nombre,
         descripcion: descripcion,
         categoria_id: categoria,
-        persona: persona 
+        persona_id: persona 
     };
     const handleSubmit = async (e) => {
         handleSubmitPost(e, form, url, okText);
@@ -55,7 +55,7 @@ export default function IngresarLibro() {
                 <EntradaDeTexto className="ingreso_input" id="nombre" value={nombre} placeholder="Nombre"  function={e => setNombre(e.target.value)}/>
                 <EntradaDeTexto className="ingreso_input" id="categoria" value={categoria} placeholder="Genero" options={propName(datac,'nombre')} function={e => setCategoria_id(nameToID(datac,'nombre',e.target.value))}/>
                 <EntradaDeTexto className="ingreso_input" id="descripcion" value={descripcion} placeholder="Descripcion"  function={e => setDescripcion(e.target.value)}/>
-                <EntradaDeTexto className="ingreso_input" id="persona" value={persona} placeholder="Persona"   options={propName(datap,'email')} function={e =>setPersona(nameToID(datap,'email',e.target.value)) }/>
+                <EntradaDeTexto className="ingreso_input" id="persona" value={persona} placeholder="Persona"   options={[...propName(datap,'email'), "Sin Prestar"]} function={e =>setPersona(nameToID(datap,'email',e.target.value)) }/>
 
                 <Boton text="Enviar" function={handleSubmit}/>
                 </div>
