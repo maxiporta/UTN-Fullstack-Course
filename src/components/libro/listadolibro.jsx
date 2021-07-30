@@ -50,7 +50,7 @@ export default function ListadoLibro() {
             pd = devolver;
         }
         var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(data.persona,'id',libro.persona_id,'nombre')} categoria={nameToX(data.categoria,'id',libro.categoria_id,'nombre')} />
-                        <BotonModi class={"btn btn-primary"} index={index} id={libro.id} form={form} ruta={url} flag={flag} setFlag={setFlag} />
+                        <BotonModi class={"btn btn-dark"} index={index} id={libro.id} form={form} ruta={url} flag={flag} setFlag={setFlag} />
                         <Boton class = "btn btn-outline-primary" text = {prestar} function={() => pd(libro, lib.persona)}/>
                         <Boton class = "btn btn-danger" text = "BORRAR" function={() => handleDelete(url + libro.id, okText)}/>
                         <br></br>
