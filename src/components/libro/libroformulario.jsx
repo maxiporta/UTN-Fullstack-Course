@@ -1,32 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import EntradaDeTexto from '../utility/input';
-import handleGet from '../../middleware/get';
-import { useEffect } from 'react';
-
-const url = 'http://localhost:3000/libro'
-
+import {nameToID, propName} from '../../functions/functions'
 //Formulario para ingresar nuevo libro, NO ANDA
 export default function libroformulario(props) {
-    //chanchada
-    function propName(prop, value){
-        let string = [];
-        for(var i in prop) {
-            string.push(prop[i][value]);
-        }
-        return string;
-    }
-    function nameToID(prop, key, name){
-        for(var i in prop) {
-            if(prop[i][key]===name)
-            {
-                console.log(prop[i].email);
-
-                return prop[i]['id'];
-            }
-        }
-        return null;
-    }
-    //mejorar
     return (
         <>
             <EntradaDeTexto className="ingreso_input" id="nombre" value={props.nombre} placeholder="Nombre"  function={e => props.setNombre(e.target.value)}/>

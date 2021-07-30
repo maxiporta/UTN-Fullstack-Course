@@ -9,6 +9,8 @@ import handlePut from '../../middleware/put';
 import IngresarLibro from './ingresarlibro';
 import EntradaDeTexto from '../utility/input';
 import { useDispatch, useSelector } from 'react-redux';
+import { propName, nameToID, nameToX , changeFlagArray} from '../../functions/functions';
+import Libroformulario from './libroformulario';
 
 const url = 'http://localhost:3000/libro/';
 
@@ -18,45 +20,21 @@ export default function ListadoLibro() {
     const datared = useSelector((state) => state.libro);
     const dispatch = useDispatch();
     const okText = "Libro borrado con exito";
+    const [descripcion, setDescripcion] = useState('');
+    const [persona, setPersona] = useState('');
     const form = {
-        nombre: "nombre"
+        descripcion: descripcion
     };
     //chanchada
     const [datap, setDatap] = useState([]);
     const [datac, setDatac] = useState([]);
-    const [persona, setPersona] = useState([]);
 
     useEffect(() => {
         handleGet("http://localhost:3000/persona", setDatap);
         handleGet("http://localhost:3000/categoria", setDatac);
     }, []);
-    function nameToX(prop, key, name, X){
-        for(var i in prop) {
-            if(prop[i][key]===name)
-            {
-                return prop[i][X];
-            }
-        }
-        return null;
-    }
-    function propName(prop, value){
-        let string = [];
-        for(var i in prop) {
-            string.push(prop[i][value]);
-        }
-        return string;
-    }
-    function nameToID(prop, key, name){
-        for(var i in prop) {
-            if(prop[i][key]===name)
-            {
-                return prop[i]['id'];
-            }
-        }
-        return null;
-    }
     //mejorar
-    //mejorar
+
     useEffect(() => {
         handleGet(url, setdata);
         if(data.length > flag.length){
@@ -72,12 +50,14 @@ export default function ListadoLibro() {
         form.persona_id = persona;
         handlePut("http://localhost:3000/libro/prestar/"+form.id, "prestado", form);
     }
-    const changeFlagArray = (callback, value, array, index)=>{
-        const aux = [...array];
-        aux[index] = value;
-        callback([...aux])
+    const botonModificar = (setflag, flagi, flag, index, id, struct)=>{
+        if(flagi == true)
+        {
+            console.log(struct);
+            handlePut("http://localhost:3000/libro/"+id, "modificado con exito", struct);
+        }
+        changeFlagArray(setflag, flagi, flag, index)
     }
-    
     const listaLibro = data.map((libro, index) => {
         let prestar = "PRESTAR";
         let pd = presta;
@@ -90,12 +70,12 @@ export default function ListadoLibro() {
             pd = devolver;
         }
         if(flag[index] == false){
-            modificando = <><br></br> <p>hola</p></>;
+            modificando = <EntradaDeTexto className="ingreso_input" id="descripcion" value={descripcion} placeholder="Descripcion"  function={e => setDescripcion(e.target.value)}/>;
             modificar = "Guardar";
         }
 
         var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(datap,'id',libro.persona_id,'nombre')} categoria={nameToX(datac,'id',libro.categoria_id,'nombre')} />
-                        <Boton class = "btn btn-primary" text={modificar} function={() => changeFlagArray(setflag, !flag[index], flag, index)}/>
+                        <Boton class = "btn btn-primary" text={modificar} function={() => botonModificar(setflag, !flag[index], flag, index, libro.id, form)}/>
                         <Boton class = "btn btn-outline-primary" text = {prestar} function={() => pd(libro, persona)}/>
                         <Boton class = "btn btn-danger" text = "BORRAR" function={() => handleDelete(url + libro.id, okText)}/>
                         {options}

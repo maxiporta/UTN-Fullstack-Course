@@ -14,29 +14,29 @@ export default function IngresarLibro() {
     const [descripcion, setDescripcion] = useState('');
     const [categoria, setCategoria_id] = useState('');
     const [persona, setPersona] = useState('');
-    const okText = "Libro ingresado";
-    
-    
-    const [datap, setDatap] = useState([]);
-    const [datac, setDatac] = useState([]);
-    useEffect(() => {
-        handleGet("http://localhost:3000/persona", setDatap);
-        handleGet("http://localhost:3000/categoria", setDatac);
-        if(datac[0] != undefined)
-        {
-            setCategoria_id(datac[0].id);
-        }
-        if(datap[0] != undefined)
-        {
-            setPersona(datap[0].id);
-        }
-    }, []);
     const form = {
         nombre: nombre,
         descripcion: descripcion,
         categoria_id: categoria,
         persona_id: persona 
     };
+    const okText = "Libro ingresado";
+    
+    const [datap, setDatap] = useState([]);
+    const [datac, setDatac] = useState([]);
+    useEffect(() => {
+        handleGet("http://localhost:3000/persona", setDatap);
+        handleGet("http://localhost:3000/categoria", setDatac);
+        //inicializo las variables para que resolver el bug de que si no se selecciona opcion ande igual
+        if(datac[0] != undefined){
+            setCategoria_id(datac[0].id);
+        }
+        if(datap[0] != undefined){
+            setPersona(datap[0].id);
+        }
+    }, []);
+
+
     const handleSubmit = async (e) => {
         handleSubmitPost(e, form, url, okText);
     }
