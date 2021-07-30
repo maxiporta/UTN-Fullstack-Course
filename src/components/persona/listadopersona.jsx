@@ -30,28 +30,28 @@ export default function ListadoPersona() {
     const verLibro = (index)=>{
         setActualPerson(index);
     }
-    //se podria reducir en un elemento mas todavia
+    
     let listaPersona = data.persona.map((persona, index) => {
             let modificando = "";
             if(flag[index]===true)
             {
                 modificando = <FormularioPersonaTarjeta person={person} setPersona={setPersona}/>;
             }
-            const infill = <InfillPersona botom={modificando} text={"VER LIBROS"} person={data.persona[index] }index= {index} url = {url} form = {form} flag={flag}  okText={okText} setFlag={setFlag} verLibro ={() => verLibro(index)}/>;
+            const infill = <InfillPersona botom={modificando} text={"VER LIBROS"} person={data.persona[index] }index= {index} url = {url} form = {form} flag={flag}  okText={okText} setFlag={setFlag} verLibro ={setActualPerson}/>;
         return (
             <Card infill = {infill} keys ={"persona" + persona.id}/>
         );
     });
     
-    if(actualPerson !== null)
+    if(actualPerson !== null)//cuando ves los libros de una persona 
     {
         let modificando = "";
         if(flag[actualPerson]===true)
         {
             modificando = <FormularioPersonaTarjeta person={person} setPersona={setPersona}/>;
         }
-        const infill = <InfillPersona botom={modificando} text={"DEJAR DE VER"} person={data.persona[actualPerson] }index= {actualPerson} url = {url} form = {form} flag={flag}  okText={okText} setFlag={setFlag} verLibro ={() => verLibro(null)}/>;
-        listaPersona = <><Card infill = {infill} keys ={"persona" + data.persona[actualPerson].id}/>{<MostrarLibro index = {actualPerson} filtro = {false}/>}</>;
+        const infill = <InfillPersona botom={modificando} text={"DEJAR DE VER"} person={data.persona[actualPerson] }index= {actualPerson} url = {url} form = {form} flag={flag}  okText={okText} setFlag={setFlag} verLibro ={() => setActualPerson(null)}/>;
+        listaPersona = <><Card infill = {infill} keys ={"persona" + data.persona[actualPerson].id}/>{<MostrarLibro index = {actualPerson} filtro = {true}/>}</>;
 
     }
     return(

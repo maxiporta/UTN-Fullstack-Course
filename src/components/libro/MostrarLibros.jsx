@@ -8,9 +8,9 @@ export default function MostrarLibro(props) {
     const data = useSelector((state) => state);
     var listaLibros = data.libro.map((libro, index) => {
         if((libro.persona_id === data.persona[props.index].id)|| !props.filtro){
+            console.log(libro.persona_id)
             let l = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(data.persona,'id',libro.persona_id,'nombre')} categoria={nameToX(data.categoria,'id',libro.categoria_id,'nombre')} /></>;
             return ( 
-                // eslint-disable-next-line react/style-prop-object
                 <Card infill = {l} keys ={"libro" + libro.id}/>
             );
         }
