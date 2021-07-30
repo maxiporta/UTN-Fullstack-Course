@@ -7,8 +7,8 @@ import Card from '../utility/card';
 export default function MostrarLibro(props) {
     const data = useSelector((state) => state);
     var listaLibros = data.libro.map((libro, index) => {
-        if((libro.persona_id === data.persona[props.index].id)|| !props.filtro){
-            console.log(libro.persona_id)
+        console.log(props.compareValue)
+        if((libro[props.typeCompare] === props.compareValue)|| !props.filtro){
             let l = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(data.persona,'id',libro.persona_id,'nombre')} categoria={nameToX(data.categoria,'id',libro.categoria_id,'nombre')} /></>;
             return ( 
                 <Card infill = {l} keys ={"libro" + libro.id}/>

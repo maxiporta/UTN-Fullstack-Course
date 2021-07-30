@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import handleSubmitPost from "../../middleware/post";
 import Boton from '../utility/boton';
-import handleGet from '../../middleware/get';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Libroformulario from './libroformulario';
 
 export default function IngresarLibro() {

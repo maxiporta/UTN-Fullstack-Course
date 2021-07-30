@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import './style.css'
 import Boton from '../utility/boton';
 import Libro from './libro';
@@ -7,13 +7,12 @@ import handleDelete from '../../middleware/delete';
 import handlePut from '../../middleware/put';
 import IngresarLibro from './ingresarlibro';
 import EntradaDeTexto from '../utility/input';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { propName, nameToID, nameToX, startFlag } from '../../functions/functions';
 import BotonModi from "../utility/botonmodificar"
 
 export default function ListadoLibro() {
     const data = useSelector((state) => state);
-    const dispatch = useDispatch();
     const[flag, setFlag] = useState([...startFlag(data.libro.length)]);
     const [lib, setLib] = useState({persona:'', descripcion:''});
     const okText = "Libro borrado con exito";
