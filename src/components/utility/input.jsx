@@ -3,12 +3,12 @@ import React from 'react';
 export default function entradaDeTexto(props) {
     let label = "";
     let input = <>
-    <input required type={props.type} id={props.id} value={props.nombre} onChange={props.function} placeholder={props.placeholder} className={props.className}/></>
+        <input required type={props.type} id={props.id} value={props.nombre} onChange={props.function} placeholder={props.placeholder} className={props.className} key={props.keys}/></>
     if(props.label !== "default")
     {
         label = <label>{props.label}</label>;
     }
-    if(props.options != "")
+    if(props.options !== "")
     {
         const option = props.options.map((opciones, index) => {
             return (
@@ -17,7 +17,7 @@ export default function entradaDeTexto(props) {
             );
         });
         input = <>
-            <select type={props.type} id={props.id} value={props.nombre} onChange={props.function} placeholder={props.placeholder} className={props.className}>
+            <select type={props.type} id={props.id} value={props.nombre} onChange={props.function} placeholder={props.placeholder} className={props.className} key={props.keys}>
             {option}
         </select></>
     }

@@ -9,17 +9,16 @@ import ListadoLibro from './components/libro/listadolibro.jsx';
 import ListadoPersona from './components/persona/listadopersona'
 import store from './reducers/store';
 import { getty, puttyl } from './reducers/store';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 function App() {
-  console.log(store.getState());
-  console.log("hello");
+  
+  const datared = useSelector((state) => state);
   useEffect(() => {
     store.dispatch(getty())
-    console.log("hello")
-  }, [store]);
+  }, [datared]);
   //store.dispatch(puttyl("genial", {nombre:"sads", categoria_id:"SEBA",descripcion:"sdasdas",},8));
-    console.log(store.getState());
 
   return (
     <Router>

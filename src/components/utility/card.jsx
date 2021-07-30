@@ -3,7 +3,7 @@ import React from 'react';
 export default function card(props) {
 
     return (
-        <div className="card animated fadeIn fast" style={{marginTop:"1rem"}} key = {props.key}>
+        <div className="card animated fadeIn fast" style={{marginTop:"1rem"}} key = {props.keys}>
         <img className="card-img-top img-fluid img" src="..." alt=""/>
         <div className="card-body">
             {props.infill}

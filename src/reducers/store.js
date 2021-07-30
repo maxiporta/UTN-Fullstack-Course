@@ -37,7 +37,6 @@ function reducer(state = estadoInicial, action) {
 }
 export function getty(text){
     return async function gety(dispatch, getState) {
-        const inirtial = {text};//example
         const rl = await handleGet("http://localhost:3000/libro/",aux);
         const rc = await handleGet("http://localhost:3000/categoria/",aux);
         const rp = await handleGet("http://localhost:3000/persona/",aux);

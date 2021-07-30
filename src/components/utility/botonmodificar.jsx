@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Boton from '../utility/boton';
 import handlePut from '../../middleware/put';
 import { changeFlagArray } from '../../functions/functions';
 
 export default function BotonModi(props) {
     const botonModificar = (setflag, flagi, flag, index, id, struct, ruta)=>{
-        if(flagi == true)
+        if(flagi === true)
         {
             handlePut(ruta+id, "modificado con exito", struct);
         }
@@ -13,7 +13,7 @@ export default function BotonModi(props) {
         changeFlagArray(setflag, flagi, flag, index)
     }
     let modificar = "MODIFICAR";
-    if(props.flag[props.index] == false){
+    if(props.flag[props.index] === false){
         modificar = "Guardar";
     }
 

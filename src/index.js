@@ -11,14 +11,6 @@ import 'jquery';
 import 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-import { getty, puttyl } from './reducers/store';
-import { useEffect, useState } from 'react';
-
-console.log(store.getState());
-  store.dispatch(getty())
-//store.dispatch(puttyl("genial", {nombre:"sads", categoria_id:"SEBA",descripcion:"sdasdas",},8));
-  console.log(store.getState());
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store = {store}>

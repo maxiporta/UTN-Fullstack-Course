@@ -17,18 +17,13 @@ const url = 'http://localhost:3000/categoria/';
 export default function ListadoCategoria() {
     const [data, setdata] = useState([]);
     const[flag, setFlag] = useState([true]);
+    const datar = useSelector((state) => state);
     const [nombre, setNombre] = useState('');
     const [actualCategoria, setActualCategoria] = useState(null);
     const form = {
         nombre: nombre
     };
 
-    const [datal, setDatal] = useState([]);
-    const [datap, setDatap] = useState([]);
-    useEffect(() => {
-      handleGet("http://localhost:3000/libro/", setDatal);
-      handleGet("http://localhost:3000/persona", setDatap);
-    }, []);
     const okText = "Genero borrado con exito";
     useEffect(() => {
       handleGet(url, setdata);
@@ -40,10 +35,11 @@ export default function ListadoCategoria() {
     const verLibro = (index)=>{
       setActualCategoria(index);
   }
+
     let listaCategoria = data.map((categoria, index) => {
       const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/></>;
       let modificando = "";
-      if(flag[index]==false)
+      if(flag[index]===false)
       {
         modificando = input;
       }
@@ -53,14 +49,14 @@ export default function ListadoCategoria() {
                     <Boton class = "btn btn-danger" text="BORRAR" function={() => handleDelete(url + categoria.id, okText)}/>
                     {modificando}</>
       return (
-        <Card infill = {infill} key ={"categoria" + categoria.id}/>
+        <Card infill = {infill} keys ={"categoria" + categoria.id}/>
       );
     });
     if(actualCategoria !== null)
     {
         const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/></>;
         let modificando = "";
-        if(flag[actualCategoria]==false)
+        if(flag[actualCategoria]===false)
         {
             modificando = input;
         }
@@ -73,16 +69,17 @@ export default function ListadoCategoria() {
                 <Boton class = "btn btn-outline-primary" text="DEJAR DE VER" function={() => verLibro(null)}/>
                 <Boton class = "btn btn-danger" text="BORRAR" function={() => handleDelete(url + data[actualCategoria].id, okText)}/>
                 {modificando}</>
-        var listaLibros = datal.map((libro, index) => {
+        var listaLibros = datar.libro.map((libro, index) => {
             if(libro.categoria_id === data[actualCategoria].id){
-                let l = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(datap,'id',libro.persona_id,'nombre')} categoria={nameToX(data,'id',libro.categoria_id,'nombre')} /></>;
+                let l = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(datar.persona,'id',libro.persona_id,'nombre')} categoria={nameToX(data,'id',libro.categoria_id,'nombre')} /></>;
                 return ( 
                     // eslint-disable-next-line react/style-prop-object
-                    <Card infill = {l} key ={"libro" + libro.id}/>
+                    <Card infill = {l} keys ={"libro" + libro.id}/>
                 );
             }
+            return "";
         });    
-        listaCategoria = <> <Card infill = {infill} key ={"categoria" + data[actualCategoria].id}/>{listaLibros}</>;
+        listaCategoria = <> <Card infill = {infill} keys ={"categoria" + data[actualCategoria].id}/>{listaLibros}</>;
     }
     return(
       <>

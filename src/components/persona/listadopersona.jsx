@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import handleGet from '../../middleware/get';
 import handleDelete from '../../middleware/delete';
-import handlePut from '../../middleware/put';
 import Boton from '../utility/boton';
 import Card from '../utility/card';
 import EntradaDeTexto from '../utility/input';
@@ -10,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import BotonModi from '../utility/botonmodificar';
 import { nameToX } from '../../functions/functions';
 import IngresarPersona from './ingresarpersona';
-import ListadoLibro from '../libro/listadolibro';
 import Libro from '../libro/libro';
 
 const url = 'http://localhost:3000/persona/';
@@ -18,29 +16,20 @@ const url = 'http://localhost:3000/persona/';
 export default function ListadoPersona() {
     const [data, setdata] = useState([]);
     const[flag, setFlag] = useState([true]);
-    const datared = useSelector((state) => state);
+    const datar = useSelector((state) => state);
     const dispatch = useDispatch();
     const okText = "Persona Borrada";
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [alias, setAlias] = useState('');
     const [actualPerson, setActualPerson] = useState(null);
-    console.log(datared);
     const form = {
         nombre: nombre,
         apellido: apellido,
         alias: alias
     };
-    const [datal, setDatal] = useState([]);
-    const [datac, setDatac] = useState([]);
-
-    useEffect(() => {
-        handleGet("http://localhost:3000/libro/", setDatal);
-        handleGet("http://localhost:3000/categoria", setDatac);
-    }, []);
     useEffect(() => {
         handleGet(url, setdata);
-        dispatch({type:"ADDPERSON", data: data});
         if(data.length > flag.length){
             setFlag([...flag, true]);
         }
@@ -53,7 +42,7 @@ export default function ListadoPersona() {
                             <EntradaDeTexto placeholder = "Apellido" id="apellido" value={apellido} function={e => setApellido(e.target.value)}/>
                             <EntradaDeTexto placeholder = "Alias" id="alias" value={alias} function={e => setAlias(e.target.value)}/></>;
             let modificando = "";
-            if(flag[index]==false)
+            if(flag[index]===false)
             {
                 modificando = input;
             }
@@ -67,7 +56,7 @@ export default function ListadoPersona() {
                             <Boton class = "btn btn-danger" text="BORRAR" function={() => handleDelete(url + persona.id, okText)}/>
                             {modificando}</>
         return (
-            <Card infill = {infill} key ={"persona" + persona.id}/>
+            <Card infill = {infill} keys ={"persona" + persona.id}/>
         );
     });
     
@@ -77,7 +66,7 @@ export default function ListadoPersona() {
                                 <EntradaDeTexto placeholder = "Apellido" id="apellido" value={apellido} function={e => setApellido(e.target.value)}/>
                                 <EntradaDeTexto placeholder = "Alias" id="alias" value={alias} function={e => setAlias(e.target.value)}/></>;
         let modificando = "";
-        if(flag[actualPerson]==false)
+        if(flag[actualPerson]===false)
         {
             modificando = input;
         }
@@ -90,16 +79,17 @@ export default function ListadoPersona() {
                 <Boton class = "btn btn-outline-primary" text="DEJAR DE VER" function={() => verLibro(null)}/>
                 <Boton class = "btn btn-danger" text="BORRAR" function={() => handleDelete(url + data[actualPerson].id, okText)}/>
                 {modificando}</>
-        var listaLibros = datal.map((libro, index) => {
+        var listaLibros = datar.libro.map((libro, index) => {
             if(libro.persona_id === data[actualPerson].id){
-                let l = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(data,'id',libro.persona_id,'nombre')} categoria={nameToX(datac,'id',libro.categoria_id,'nombre')} /></>;
+                let l = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(data,'id',libro.persona_id,'nombre')} categoria={nameToX(datar.categoria,'id',libro.categoria_id,'nombre')} /></>;
                 return ( 
                     // eslint-disable-next-line react/style-prop-object
-                    <Card infill = {l} key ={"libro" + libro.id}/>
+                    <Card infill = {l} keys ={"libro" + libro.id}/>
                 );
             }
+            return "";
         });    
-        listaPersona = <><Card infill = {infill} key ={"persona" + data[actualPerson].id}/>{listaLibros}</>;
+        listaPersona = <><Card infill = {infill} keys ={"persona" + data[actualPerson].id}/>{listaLibros}</>;
     }
     return(
     <>

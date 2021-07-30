@@ -7,21 +7,21 @@ export default function libro(props) {
         prestado = [];
     }
     return (
-        <div class="book">
-            <div class="back"></div>
-            <div class="page6">
+        <div className="book">
+            <div className="back"></div>
+            <div className="page6">
                 <p>{props.descripcion}</p>
                 <p>{prestado} {props.persona}</p>
             </div>
-            <div class="page5"></div>
-            <div class="page4"></div>
-            <div class="page3"></div>
-            <div class="page2"></div>
-            <div class="page1">
+            <div className="page5"></div>
+            <div className="page4"></div>
+            <div className="page3"></div>
+            <div className="page2"></div>
+            <div className="page1">
             </div>
-            <div class="front">
+            <div className="front">
                 <p>{props.nombre}</p>
-                <p class="categoria">{props.categoria}</p>
+                <p className="categoria">{props.categoria}</p>
             </div>
         </div>
     );

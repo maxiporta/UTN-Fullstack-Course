@@ -15,7 +15,7 @@ const url = 'http://localhost:3000/libro/';
 
 export default function ListadoLibro() {
     const [data, setdata] = useState([]);
-    const datared = useSelector((state) => state.libro);
+    const datar = useSelector((state) => state);
     const dispatch = useDispatch();
     const okText = "Libro borrado con exito";
     const [descripcion, setDescripcion] = useState('');
@@ -24,17 +24,6 @@ export default function ListadoLibro() {
     const form = {
         descripcion: descripcion
     };
-    //chanchada
-    const [datap, setDatap] = useState([]);
-    const [datac, setDatac] = useState([]);
-
-    useEffect(() => {
-        handleGet("http://localhost:3000/persona", setDatap);
-        handleGet("http://localhost:3000/categoria", setDatac);
-        //inicializo las variables para que resolver el bug de que si no se selecciona opcion ande igual
-    }, []);
-    //mejorar
-
     useEffect(() => {
         handleGet(url, setdata);
         if(data.length > flag.length){
@@ -50,17 +39,18 @@ export default function ListadoLibro() {
         form.persona_id = persona;
         if(persona === '')
         {
-            form.persona_id = datap[0].id;
+            form.persona_id = datar.persona[0].id;
         }
         handlePut("http://localhost:3000/libro/prestar/"+form.id, "prestado", form);
     }
+    
     const listaLibro = data.map((libro, index) => {
         let prestar = "PRESTAR";
         let pd = presta;
-        let options = <EntradaDeTexto className="ingreso_input" id="persona" value={persona} placeholder="datap"   options={propName(datap,'email')} function={e =>setPersona(nameToID(datap,'email',e.target.value)) }/>
+        let options = <EntradaDeTexto className="ingreso_input" id="persona" value={persona} placeholder="datap"   options={propName(datar.persona,'email')} function={e =>setPersona(nameToID(datar.persona,'email',e.target.value)) }/>
         const input = <EntradaDeTexto className="ingreso_input" id="descripcion" value={descripcion} placeholder="Descripcion"  function={e => setDescripcion(e.target.value)}/>;
         let modificando = "";
-        if(flag[index]==false)
+        if(flag[index]===false)
         {
             modificando = input;
         }
@@ -69,16 +59,17 @@ export default function ListadoLibro() {
             prestar="DEVOLVER";
             pd = devolver;
         }
-        var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(datap,'id',libro.persona_id,'nombre')} categoria={nameToX(datac,'id',libro.categoria_id,'nombre')} />
+        var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(datar.persona,'id',libro.persona_id,'nombre')} categoria={nameToX(datar.categoria,'id',libro.categoria_id,'nombre')} />
                         <BotonModi class={"btn btn-primary"} index={index} id={libro.id} form={form} ruta={url} flag={flag} setFlag={setFlag} />
                         <Boton class = "btn btn-outline-primary" text = {prestar} function={() => pd(libro, persona)}/>
                         <Boton class = "btn btn-danger" text = "BORRAR" function={() => handleDelete(url + libro.id, okText)}/>
+                        <br></br>
                         {options}
                         {modificando}</>;
 
         return ( 
             // eslint-disable-next-line react/style-prop-object
-            <Card infill = {infill} key ={"libro" + libro.id}/>
+            <Card infill = {infill} keys ={"libro" + libro.id}/>
         );
     });
     return(
