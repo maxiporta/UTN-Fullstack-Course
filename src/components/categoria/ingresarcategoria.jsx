@@ -19,7 +19,7 @@ export default function IngresarCategoria() {
         <>
             <h3>Ingresar nueva categoria</h3> 
             <form>
-                <EntradaDeTexto label = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/>
+                <EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/>
                 <Boton text="Enviar" function={handleSubmit}/>
             </form>
         </>

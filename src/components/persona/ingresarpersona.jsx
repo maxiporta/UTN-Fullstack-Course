@@ -26,10 +26,10 @@ export default function IngresarPersona() {
         <>
             <h3>Ingresar nueva persona</h3> 
             <form>
-                <EntradaDeTexto label = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/>
-                <EntradaDeTexto label = "Apellido" id="apellido" value={apellido} function={e => setApellido(e.target.value)}/>
-                <EntradaDeTexto label = "Alias" id="alias" value={alias} function={e => setAlias(e.target.value)}/>
-                <EntradaDeTexto label = "Email" type="email" id="email" value={email} function={e => setEmail(e.target.value)}/>
+                <EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/>
+                <EntradaDeTexto placeholder = "Apellido" id="apellido" value={apellido} function={e => setApellido(e.target.value)}/>
+                <EntradaDeTexto placeholder = "Alias" id="alias" value={alias} function={e => setAlias(e.target.value)}/>
+                <EntradaDeTexto placeholder = "Email" type="email" id="email" value={email} function={e => setEmail(e.target.value)}/>
 
                 <Boton text="Enviar" function={handleSubmit}/>
             </form>

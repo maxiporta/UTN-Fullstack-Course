@@ -9,7 +9,7 @@ import handlePut from '../../middleware/put';
 import IngresarLibro from './ingresarlibro';
 import EntradaDeTexto from '../utility/input';
 import { useDispatch, useSelector } from 'react-redux';
-import { propName, nameToID, nameToX , changeFlagArray} from '../../functions/functions';
+import { propName, nameToID, nameToX } from '../../functions/functions';
 import BotonModi from "../utility/botonmodificar"
 const url = 'http://localhost:3000/libro/';
 
