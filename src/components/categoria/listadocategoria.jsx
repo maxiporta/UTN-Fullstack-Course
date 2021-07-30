@@ -12,21 +12,21 @@ import Libro from '../libro/libro';
 
 import IngresarCategoria from './ingresarcategoria';
 
-const url = 'http://localhost:3000/categoria/';
 
 export default function ListadoCategoria() {
     const data = useSelector((state) => state);
-    const[flag, setFlag] = useState([...startFlag(data.categoria.length)]);
     const [nombre, setNombre] = useState('');
     const [actualCategoria, setActualCategoria] = useState(null);
+    const[flag, setFlag] = useState([...startFlag(data.categoria.length)]);
+    const okText = "Genero borrado con exito";
+    const url = 'http://localhost:3000/categoria/';
     const form = {
         nombre: nombre
     };
-    const okText = "Genero borrado con exito";
 
     const verLibro = (index)=>{
       setActualCategoria(index);
-  }
+    }
 
     let listaCategoria = data.categoria.map((categoria, index) => {
       const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/></>;
@@ -48,7 +48,7 @@ export default function ListadoCategoria() {
     {
         const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/></>;
         let modificando = "";
-        if(flag[actualCategoria]===false)
+        if(flag[actualCategoria]===true)
         {
             modificando = input;
         }

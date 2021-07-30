@@ -11,29 +11,29 @@ import { nameToX, startFlag } from '../../functions/functions';
 import IngresarPersona from './ingresarpersona';
 import Libro from '../libro/libro';
 
-const url = 'http://localhost:3000/persona/';
 
 export default function ListadoPersona() {
     const data = useSelector((state) => state);
-    const[flag, setFlag] = useState([...startFlag(data.persona.length)]);
     const dispatch = useDispatch();
-    const okText = "Persona Borrada";
-    const [nombre, setNombre] = useState('');
-    const [apellido, setApellido] = useState('');
-    const [alias, setAlias] = useState('');
+    const [person, setPersona] = useState('');
     const [actualPerson, setActualPerson] = useState(null);
+    const[flag, setFlag] = useState([...startFlag(data.persona.length)]);
+    const okText = "Persona Borrada";
+    const url = 'http://localhost:3000/persona/';
     const form = {
-        nombre: nombre,
-        apellido: apellido,
-        alias: alias
+        nombre: person.nombre,
+        apellido: person.apellido,
+        alias: person.alias
     };
+
     const verLibro = (index)=>{
         setActualPerson(index);
     }
+    
     let listaPersona = data.persona.map((persona, index) => {
-            const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/>
-                            <EntradaDeTexto placeholder = "Apellido" id="apellido" value={apellido} function={e => setApellido(e.target.value)}/>
-                            <EntradaDeTexto placeholder = "Alias" id="alias" value={alias} function={e => setAlias(e.target.value)}/></>;
+            const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={person.nombre} function={e => setPersona({...person, nombre: e.target.value})}/>
+                            <EntradaDeTexto placeholder = "Apellido" id="apellido" value={person.apellido} function={e => setPersona({...person, apellido: e.target.value})}/>
+                            <EntradaDeTexto placeholder = "Alias" id="alias" value={person.alias} function={e => setPersona({...person, alias: e.target.value})}/></>;
             let modificando = "";
             if(flag[index]===true)
             {
@@ -55,11 +55,11 @@ export default function ListadoPersona() {
     
     if(actualPerson !== null)
     {
-        const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/>
-                                <EntradaDeTexto placeholder = "Apellido" id="apellido" value={apellido} function={e => setApellido(e.target.value)}/>
-                                <EntradaDeTexto placeholder = "Alias" id="alias" value={alias} function={e => setAlias(e.target.value)}/></>;
+        const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={person.nombre} function={e => setPersona({...person, nombre: e.target.value})}/>
+                                <EntradaDeTexto placeholder = "Apellido" id="apellido" value={person.apellido} function={e => setPersona({...person, apellido: e.target.value})}/>
+                                <EntradaDeTexto placeholder = "Alias" id="alias" value={person.alias} function={e => setPersona({...person, alias: e.target.value})}/></>;
         let modificando = "";
-        if(flag[actualPerson]===false)
+        if(flag[actualPerson]===true)
         {
             modificando = input;
         }
