@@ -22,7 +22,7 @@ export default function ListadoLibro() {
     };
 
     const devolver = (form)=> {
-        handlePut("http://localhost:3000/libro/devolver/"+form.id, "devuelto", form);
+        handlePut("http://localhost:3000/libro/devolver/"+form.id, "El libro fue devuelto", form);
     }
     const presta = (form, persona)=>{
         form.persona_id = persona;
@@ -30,7 +30,7 @@ export default function ListadoLibro() {
         {
             form.persona_id = data.persona[0].id;
         }
-        handlePut("http://localhost:3000/libro/prestar/"+form.id, "prestado", form);
+        handlePut("http://localhost:3000/libro/prestar/"+form.id, "El libro fue prestado", form);
     }
     
     const listaLibro = data.libro.map((libro, index) => {

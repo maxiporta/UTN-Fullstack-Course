@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import handleGet from '../../middleware/get';
-import handleDelete from '../../middleware/delete';
-import Boton from '../utility/boton';
+import React, { useState } from 'react';
 import Card from '../utility/card';
 import './style.css'
 import { useSelector } from 'react-redux';

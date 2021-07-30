@@ -6,7 +6,7 @@ import Libroformulario from './libroformulario';
 
 export default function IngresarLibro() {
 
-    const [libr, setLibro] = useState('');
+    const [libr, setLibro] = useState({categoria: ''});
     const data = useSelector((state) => state);
     const url = 'http://localhost:3000/libro'
     const okText = "Libro ingresado";
