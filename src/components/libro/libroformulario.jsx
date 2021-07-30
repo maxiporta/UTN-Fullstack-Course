@@ -1,7 +1,6 @@
 import React from 'react';
 import EntradaDeTexto from '../utility/input';
 import {nameToID, propName} from '../../functions/functions'
-//Formulario para ingresar nuevo libro, NO ANDA
 export default function libroformulario(props) {
     return (
         <>

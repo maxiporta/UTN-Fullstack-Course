@@ -31,6 +31,7 @@ export default function ListadoLibro() {
     useEffect(() => {
         handleGet("http://localhost:3000/persona", setDatap);
         handleGet("http://localhost:3000/categoria", setDatac);
+        //inicializo las variables para que resolver el bug de que si no se selecciona opcion ande igual
     }, []);
     //mejorar
 
@@ -45,8 +46,12 @@ export default function ListadoLibro() {
     const devolver = (form)=> {
         handlePut("http://localhost:3000/libro/devolver/"+form.id, "devuelto", form);
     }
-    const presta = (form, persona)=>  {
+    const presta = (form, persona)=>{
         form.persona_id = persona;
+        if(persona === '')
+        {
+            form.persona_id = datap[0].id;
+        }
         handlePut("http://localhost:3000/libro/prestar/"+form.id, "prestado", form);
     }
     const listaLibro = data.map((libro, index) => {

@@ -10,9 +10,10 @@ export default function entradaDeTexto(props) {
     }
     if(props.options != "")
     {
-        const option = props.options.map((opciones) => {
+        const option = props.options.map((opciones, index) => {
             return (
-                <option>{opciones}</option>
+                <option >{opciones}</option>
+
             );
         });
         input = <>

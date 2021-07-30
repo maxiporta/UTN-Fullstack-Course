@@ -12,7 +12,6 @@ export default function BotonModi(props) {
 
         changeFlagArray(setflag, flagi, flag, index)
     }
-    console.log(props.flag)
     let modificar = "MODIFICAR";
     if(props.flag[props.index] == false){
         modificar = "Guardar";

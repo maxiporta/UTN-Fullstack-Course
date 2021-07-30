@@ -7,7 +7,6 @@ import Libroformulario from './libroformulario';
 
 const url = 'http://localhost:3000/libro'
 
-//Formulario para ingresar nuevo libro, NO ANDA
 export default function IngresarLibro() {
 
     const [nombre, setNombre] = useState('');
@@ -27,17 +26,15 @@ export default function IngresarLibro() {
     useEffect(() => {
         handleGet("http://localhost:3000/persona", setDatap);
         handleGet("http://localhost:3000/categoria", setDatac);
-        //inicializo las variables para que resolver el bug de que si no se selecciona opcion ande igual
-        if(datac[0] != undefined){
-            setCategoria_id(datac[0].id);
-        }
-        if(datap[0] != undefined){
-            setPersona(datap[0].id);
-        }
     }, []);
-
-
     const handleSubmit = async (e) => {
+        if(form.categoria_id === ''){
+            form.categoria_id = datac[0].id;
+        }
+        if(form.persona_id === '')
+        {
+            form.persona_id = datap[0].id;
+        }
         handleSubmitPost(e, form, url, okText);
     }
     return (
