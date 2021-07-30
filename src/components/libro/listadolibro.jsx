@@ -14,7 +14,7 @@ const url = 'http://localhost:3000/libro/';
 
 export default function ListadoLibro() {
     const [data, setdata] = useState([]);
-    const [flag, setflag] = useState(false);
+    const [flag, setflag] = useState([true]);
     const datared = useSelector((state) => state.libro);
     const dispatch = useDispatch();
     const okText = "Libro borrado con exito";
@@ -57,9 +57,12 @@ export default function ListadoLibro() {
     }
     //mejorar
     //mejorar
-
+    console.log(flag.length);
     useEffect(() => {
         handleGet(url, setdata);
+        if(data.length > flag.length){
+            setflag([...flag, true]);
+        }
       }, [data]);
 
 
@@ -70,24 +73,35 @@ export default function ListadoLibro() {
         form.persona_id = persona;
         handlePut("http://localhost:3000/libro/prestar/"+form.id, "prestado", form);
     }
-
+    const changeFlagArray = (callback, value, array, index)=>{
+        const aux = [...array];
+        aux[index] = value;
+        callback([...aux])
+    }
     
-    const listaLibro = data.map((libro) => {
+    const listaLibro = data.map((libro, index) => {
         let prestar = "PRESTAR";
         let pd = presta;
         let options = <EntradaDeTexto className="ingreso_input" id="persona" value={persona} placeholder="datap"   options={propName(datap,'email')} function={e =>setPersona(nameToID(datap,'email',e.target.value)) }/>
-
-        if(libro.persona_id!=null )
-        {
+        let modificando = "";
+        let modificar = "MODIFICAR";
+        if(libro.persona_id!=null ){
             options = "";
             prestar="DEVOLVER";
             pd = devolver;
         }
+        if(flag[index] == false){
+            modificando = <><br></br> <p>hola</p></>;
+            modificar = "Guardar";
+        }
+
         var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(datap,'id',libro.persona_id,'nombre')} categoria={nameToX(datac,'id',libro.categoria_id,'nombre')} />
-                        <Boton class = "btn btn-primary" text="MODIFICAR" function={() => handlePut(url + libro.id, okText, form)}/>
+                        <Boton class = "btn btn-primary" text={modificar} function={() => changeFlagArray(setflag, !flag[index], flag, index)}/>
                         <Boton class = "btn btn-outline-primary" text = {prestar} function={() => pd(libro, persona)}/>
                         <Boton class = "btn btn-danger" text = "BORRAR" function={() => handleDelete(url + libro.id, okText)}/>
-                        {options}</>
+                        {options}
+                        {modificando}</>
+
         return ( 
             // eslint-disable-next-line react/style-prop-object
             <Card infill = {infill} key ={"libro" + libro.id}/>
