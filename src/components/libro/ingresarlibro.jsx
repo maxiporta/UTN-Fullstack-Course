@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import handleSubmitPost from "../../middleware/post";
 import Boton from '../utility/boton';
 import handleGet from '../../middleware/get';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Libroformulario from './libroformulario';
 
@@ -13,6 +14,8 @@ export default function IngresarLibro() {
     const [descripcion, setDescripcion] = useState('');
     const [categoria, setCategoria_id] = useState('');
     const [persona, setPersona] = useState('');
+    const data = useSelector((state) => state);
+
     const form = {
         nombre: nombre,
         descripcion: descripcion,
@@ -20,21 +23,13 @@ export default function IngresarLibro() {
         persona_id: persona 
     };
     const okText = "Libro ingresado";
-
-
-    const [datap, setDatap] = useState([]);
-    const [datac, setDatac] = useState([]);
-    useEffect(() => {
-        handleGet("http://localhost:3000/persona", setDatap);
-        handleGet("http://localhost:3000/categoria", setDatac);
-    }, []);
     const handleSubmit = async (e) => {
         if(form.categoria_id === ''){
-            form.categoria_id = datac[0].id;
+            form.categoria_id = data.categoria[0].id;
         }
         if(form.persona_id === '')
         {
-            form.persona_id = datap[0].id;
+            form.persona_id = data.persona[0].id;
         }
         handleSubmitPost(e, form, url, okText);
     }
@@ -44,7 +39,7 @@ export default function IngresarLibro() {
             <h3>Ingresar nuevo libro</h3> 
             <form className="ingreso_form">
                 <div className="inputs">
-                    <Libroformulario  setNombre ={setNombre} nombre={nombre} setDescripcion ={setDescripcion} descripcion={descripcion} setCategoria_id ={setCategoria_id} categoria={categoria} setPersona ={setPersona} persona={persona} datap={datap} datac={datac}/>
+                    <Libroformulario  setNombre ={setNombre} nombre={nombre} setDescripcion ={setDescripcion} descripcion={descripcion} setCategoria_id ={setCategoria_id} categoria={categoria} setPersona ={setPersona} persona={persona} datap={data.persona} datac={data.categoria}/>
                     <Boton text="Enviar" function={handleSubmit}/>
                 </div>
             </form>

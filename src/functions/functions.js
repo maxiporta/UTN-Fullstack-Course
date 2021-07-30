@@ -30,3 +30,8 @@ export const changeFlagArray = (callback, value, array, index)=>{
     aux[index] = value;
     callback([...aux])
 }
+export function startFlag(lenght){
+    let aux = new Array(lenght);
+    aux.fill(false);
+    return aux;
+}

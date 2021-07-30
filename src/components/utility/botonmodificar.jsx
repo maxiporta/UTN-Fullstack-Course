@@ -5,7 +5,7 @@ import { changeFlagArray } from '../../functions/functions';
 
 export default function BotonModi(props) {
     const botonModificar = (setflag, flagi, flag, index, id, struct, ruta)=>{
-        if(flagi === true)
+        if(flagi === false)
         {
             handlePut(ruta+id, "modificado con exito", struct);
         }
@@ -13,7 +13,7 @@ export default function BotonModi(props) {
         changeFlagArray(setflag, flagi, flag, index)
     }
     let modificar = "MODIFICAR";
-    if(props.flag[props.index] === false){
+    if(props.flag[props.index] === true){
         modificar = "Guardar";
     }
 

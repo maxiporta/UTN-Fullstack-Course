@@ -7,16 +7,15 @@ import EntradaDeTexto from '../utility/input';
 import './style.css'
 import { useDispatch, useSelector } from 'react-redux';
 import BotonModi from '../utility/botonmodificar';
-import { nameToX } from '../../functions/functions';
+import { nameToX, startFlag } from '../../functions/functions';
 import IngresarPersona from './ingresarpersona';
 import Libro from '../libro/libro';
 
 const url = 'http://localhost:3000/persona/';
 
 export default function ListadoPersona() {
-    const [data, setdata] = useState([]);
-    const[flag, setFlag] = useState([true]);
-    const datar = useSelector((state) => state);
+    const data = useSelector((state) => state);
+    const[flag, setFlag] = useState([...startFlag(data.persona.length)]);
     const dispatch = useDispatch();
     const okText = "Persona Borrada";
     const [nombre, setNombre] = useState('');
@@ -28,21 +27,15 @@ export default function ListadoPersona() {
         apellido: apellido,
         alias: alias
     };
-    useEffect(() => {
-        handleGet(url, setdata);
-        if(data.length > flag.length){
-            setFlag([...flag, true]);
-        }
-    }, [data]);
     const verLibro = (index)=>{
         setActualPerson(index);
     }
-    let listaPersona = data.map((persona, index) => {
+    let listaPersona = data.persona.map((persona, index) => {
             const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/>
                             <EntradaDeTexto placeholder = "Apellido" id="apellido" value={apellido} function={e => setApellido(e.target.value)}/>
                             <EntradaDeTexto placeholder = "Alias" id="alias" value={alias} function={e => setAlias(e.target.value)}/></>;
             let modificando = "";
-            if(flag[index]===false)
+            if(flag[index]===true)
             {
                 modificando = input;
             }
@@ -70,18 +63,18 @@ export default function ListadoPersona() {
         {
             modificando = input;
         }
-        let texto = <p>{"Nombre: "   + data[actualPerson].nombre}</p>
+        let texto = <p>{"Nombre: "   + data.persona[actualPerson].nombre}</p>
         var infill = <>{texto}
-                <p>{"Apellido: " + data[actualPerson].apellido}</p>
-                <p>{"Alias: "    + data[actualPerson].alias}</p>
-                <p>{"Email: "    + data[actualPerson].email}</p>
-                <BotonModi class={"btn btn-primary"} index={actualPerson} id={data[actualPerson].id} form={form} ruta={url} flag={flag} setFlag={setFlag} />
+                <p>{"Apellido: " + data.persona[actualPerson].apellido}</p>
+                <p>{"Alias: "    + data.persona[actualPerson].alias}</p>
+                <p>{"Email: "    + data.persona[actualPerson].email}</p>
+                <BotonModi class={"btn btn-primary"} index={actualPerson} id={data.persona[actualPerson].id} form={form} ruta={url} flag={flag} setFlag={setFlag} />
                 <Boton class = "btn btn-outline-primary" text="DEJAR DE VER" function={() => verLibro(null)}/>
-                <Boton class = "btn btn-danger" text="BORRAR" function={() => handleDelete(url + data[actualPerson].id, okText)}/>
+                <Boton class = "btn btn-danger" text="BORRAR" function={() => handleDelete(url + data.persona[actualPerson].id, okText)}/>
                 {modificando}</>
-        var listaLibros = datar.libro.map((libro, index) => {
-            if(libro.persona_id === data[actualPerson].id){
-                let l = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(data,'id',libro.persona_id,'nombre')} categoria={nameToX(datar.categoria,'id',libro.categoria_id,'nombre')} /></>;
+        var listaLibros = data.libro.map((libro, index) => {
+            if(libro.persona_id === data.persona[actualPerson].id){
+                let l = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(data.persona,'id',libro.persona_id,'nombre')} categoria={nameToX(data.categoria,'id',libro.categoria_id,'nombre')} /></>;
                 return ( 
                     // eslint-disable-next-line react/style-prop-object
                     <Card infill = {l} keys ={"libro" + libro.id}/>
@@ -89,7 +82,7 @@ export default function ListadoPersona() {
             }
             return "";
         });    
-        listaPersona = <><Card infill = {infill} keys ={"persona" + data[actualPerson].id}/>{listaLibros}</>;
+        listaPersona = <><Card infill = {infill} keys ={"persona" + data.persona[actualPerson].id}/>{listaLibros}</>;
     }
     return(
     <>
