@@ -8,8 +8,10 @@ import EntradaDeTexto from '../utility/input';
 import './style.css'
 import { useDispatch, useSelector } from 'react-redux';
 import BotonModi from '../utility/botonmodificar';
-
+import { nameToX } from '../../functions/functions';
 import IngresarPersona from './ingresarpersona';
+import ListadoLibro from '../libro/listadolibro';
+import Libro from '../libro/libro';
 
 const url = 'http://localhost:3000/persona/';
 
@@ -22,11 +24,19 @@ export default function ListadoPersona() {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [alias, setAlias] = useState('');
+    const [actualPerson, setActualPerson] = useState(null);
     const form = {
         nombre: nombre,
         apellido: apellido,
         alias: alias
     };
+    const [datal, setDatal] = useState([]);
+    const [datac, setDatac] = useState([]);
+
+    useEffect(() => {
+        handleGet("http://localhost:3000/libro/", setDatal);
+        handleGet("http://localhost:3000/categoria", setDatac);
+    }, []);
     useEffect(() => {
         handleGet(url, setdata);
         dispatch({type:"ADDPERSON", data: data});
@@ -34,27 +44,62 @@ export default function ListadoPersona() {
             setFlag([...flag, true]);
         }
     }, [data]);
-    const listaPersona = data.map((persona, index) => {
-        const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/>
-                        <EntradaDeTexto placeholder = "Apellido" id="apellido" value={apellido} function={e => setApellido(e.target.value)}/>
-                        <EntradaDeTexto placeholder = "Alias" id="alias" value={alias} function={e => setAlias(e.target.value)}/></>;
-        let modificando = "";
-        if(flag[index]==false)
-        {
-            modificando = input;
-        }
-        let texto = <p>{"Nombre: "   + persona.nombre}</p>
-        var infill = <>{texto}
-                        <p>{"Apellido: " + persona.apellido}</p>
-                        <p>{"Alias: "    + persona.alias}</p>
-                        <p>{"Email: "    + persona.email}</p>
-                        <BotonModi class={"btn btn-primary"} index={index} id={persona.id} form={form} ruta={url} flag={flag} setFlag={setFlag} />
-                        <Boton class = "btn btn-danger" text="BORRAR" function={() => handleDelete(url + persona.id, okText)}/>
-                        {modificando}</>
+    const verLibro = (index)=>{
+        setActualPerson(index);
+    }
+    let listaPersona = data.map((persona, index) => {
+            const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/>
+                            <EntradaDeTexto placeholder = "Apellido" id="apellido" value={apellido} function={e => setApellido(e.target.value)}/>
+                            <EntradaDeTexto placeholder = "Alias" id="alias" value={alias} function={e => setAlias(e.target.value)}/></>;
+            let modificando = "";
+            if(flag[index]==false)
+            {
+                modificando = input;
+            }
+            let texto = <p>{"Nombre: "   + persona.nombre}</p>
+            var infill = <>{texto}
+                            <p>{"Apellido: " + persona.apellido}</p>
+                            <p>{"Alias: "    + persona.alias}</p>
+                            <p>{"Email: "    + persona.email}</p>
+                            <BotonModi class={"btn btn-primary"} index={index} id={persona.id} form={form} ruta={url} flag={flag} setFlag={setFlag} />
+                            <Boton class = "btn btn-outline-primary" text="VER LIBROS" function={() => verLibro(index)}/>
+                            <Boton class = "btn btn-danger" text="BORRAR" function={() => handleDelete(url + persona.id, okText)}/>
+                            {modificando}</>
         return (
             <Card infill = {infill} key ={"persona" + persona.id}/>
         );
     });
+    
+    if(actualPerson !== null)
+    {
+        const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/>
+                                <EntradaDeTexto placeholder = "Apellido" id="apellido" value={apellido} function={e => setApellido(e.target.value)}/>
+                                <EntradaDeTexto placeholder = "Alias" id="alias" value={alias} function={e => setAlias(e.target.value)}/></>;
+        let modificando = "";
+        if(flag[actualPerson]==false)
+        {
+            modificando = input;
+        }
+        let texto = <p>{"Nombre: "   + data[actualPerson].nombre}</p>
+        var infill = <>{texto}
+                <p>{"Apellido: " + data[actualPerson].apellido}</p>
+                <p>{"Alias: "    + data[actualPerson].alias}</p>
+                <p>{"Email: "    + data[actualPerson].email}</p>
+                <BotonModi class={"btn btn-primary"} index={actualPerson} id={data[actualPerson].id} form={form} ruta={url} flag={flag} setFlag={setFlag} />
+                <Boton class = "btn btn-outline-primary" text="DEJAR DE VER" function={() => verLibro(null)}/>
+                <Boton class = "btn btn-danger" text="BORRAR" function={() => handleDelete(url + data[actualPerson].id, okText)}/>
+                {modificando}</>
+        var listaLibros = datal.map((libro, index) => {
+            if(libro.persona_id === data[actualPerson].id){
+                let l = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(data,'id',libro.persona_id,'nombre')} categoria={nameToX(datac,'id',libro.categoria_id,'nombre')} /></>;
+                return ( 
+                    // eslint-disable-next-line react/style-prop-object
+                    <Card infill = {l} key ={"libro" + libro.id}/>
+                );
+            }
+        });    
+        listaPersona = <><Card infill = {infill} key ={"persona" + data[actualPerson].id}/>{listaLibros}</>;
+    }
     return(
     <>
         <IngresarPersona/>
