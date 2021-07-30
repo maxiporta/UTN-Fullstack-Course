@@ -20,7 +20,8 @@ export default function IngresarLibro() {
         persona_id: persona 
     };
     const okText = "Libro ingresado";
-    
+
+
     const [datap, setDatap] = useState([]);
     const [datac, setDatac] = useState([]);
     useEffect(() => {

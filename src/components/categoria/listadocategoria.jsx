@@ -22,16 +22,14 @@ export default function ListadoCategoria() {
     const form = {
         nombre: nombre
     };
+
     const [datal, setDatal] = useState([]);
     const [datap, setDatap] = useState([]);
     useEffect(() => {
-        handleGet("http://localhost:3000/libro/", setDatal);
-        handleGet("http://localhost:3000/persona", setDatap);
+      handleGet("http://localhost:3000/libro/", setDatal);
+      handleGet("http://localhost:3000/persona", setDatap);
     }, []);
-    const datared = useSelector((state) => state.categoria);
-    const dispatch = useDispatch();
     const okText = "Genero borrado con exito";
-
     useEffect(() => {
       handleGet(url, setdata);
         if(data.length > flag.length){

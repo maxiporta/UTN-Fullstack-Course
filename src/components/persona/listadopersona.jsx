@@ -18,13 +18,14 @@ const url = 'http://localhost:3000/persona/';
 export default function ListadoPersona() {
     const [data, setdata] = useState([]);
     const[flag, setFlag] = useState([true]);
-    const datared = useSelector((state) => state.persona);
+    const datared = useSelector((state) => state);
     const dispatch = useDispatch();
     const okText = "Persona Borrada";
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [alias, setAlias] = useState('');
     const [actualPerson, setActualPerson] = useState(null);
+    console.log(datared);
     const form = {
         nombre: nombre,
         apellido: apellido,
