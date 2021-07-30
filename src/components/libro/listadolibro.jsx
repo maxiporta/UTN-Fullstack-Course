@@ -57,7 +57,6 @@ export default function ListadoLibro() {
     }
     //mejorar
     //mejorar
-    console.log(flag.length);
     useEffect(() => {
         handleGet(url, setdata);
         if(data.length > flag.length){
