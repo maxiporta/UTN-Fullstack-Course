@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import handleGet from '../../middleware/get';
 import handleDelete from '../../middleware/delete';
-import handlePut from '../../middleware/put';
 import Boton from '../utility/boton';
 import Card from '../utility/card';
 import './style.css'
 import { useDispatch, useSelector } from 'react-redux';
 import BotonModi from '../utility/botonmodificar';
 import EntradaDeTexto from '../utility/input';
+import { nameToX } from '../../functions/functions';
+import Libro from '../libro/libro';
 
 import IngresarCategoria from './ingresarcategoria';
 
@@ -17,12 +18,20 @@ export default function ListadoCategoria() {
     const [data, setdata] = useState([]);
     const[flag, setFlag] = useState([true]);
     const [nombre, setNombre] = useState('');
+    const [actualCategoria, setActualCategoria] = useState(null);
     const form = {
         nombre: nombre
     };
+    const [datal, setDatal] = useState([]);
+    const [datap, setDatap] = useState([]);
+    useEffect(() => {
+        handleGet("http://localhost:3000/libro/", setDatal);
+        handleGet("http://localhost:3000/persona", setDatap);
+    }, []);
     const datared = useSelector((state) => state.categoria);
     const dispatch = useDispatch();
     const okText = "Genero borrado con exito";
+
     useEffect(() => {
       handleGet(url, setdata);
         if(data.length > flag.length){
@@ -30,7 +39,10 @@ export default function ListadoCategoria() {
         }
     }, [data]);
 
-    const listaCategoria = data.map((categoria, index) => {
+    const verLibro = (index)=>{
+      setActualCategoria(index);
+  }
+    let listaCategoria = data.map((categoria, index) => {
       const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/></>;
       let modificando = "";
       if(flag[index]==false)
@@ -39,12 +51,41 @@ export default function ListadoCategoria() {
       }
       var infill = <><p>{categoria.nombre}</p>
                     <BotonModi class={"btn btn-primary"} index={index} id={categoria.id} form={form} ruta={url} flag={flag} setFlag={setFlag} />
+                    <Boton class = "btn btn-outline-primary" text="VER LIBROS" function={() => verLibro(index)}/>
                     <Boton class = "btn btn-danger" text="BORRAR" function={() => handleDelete(url + categoria.id, okText)}/>
                     {modificando}</>
       return (
         <Card infill = {infill} key ={"categoria" + categoria.id}/>
       );
     });
+    if(actualCategoria !== null)
+    {
+        const input = <><br></br><EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/></>;
+        let modificando = "";
+        if(flag[actualCategoria]==false)
+        {
+            modificando = input;
+        }
+        let texto = <p>{"Nombre: "   + data[actualCategoria].nombre}</p>
+        var infill = <>{texto}
+                <p>{"Apellido: " + data[actualCategoria].apellido}</p>
+                <p>{"Alias: "    + data[actualCategoria].alias}</p>
+                <p>{"Email: "    + data[actualCategoria].email}</p>
+                <BotonModi class={"btn btn-primary"} index={actualCategoria} id={data[actualCategoria].id} form={form} ruta={url} flag={flag} setFlag={setFlag} />
+                <Boton class = "btn btn-outline-primary" text="DEJAR DE VER" function={() => verLibro(null)}/>
+                <Boton class = "btn btn-danger" text="BORRAR" function={() => handleDelete(url + data[actualCategoria].id, okText)}/>
+                {modificando}</>
+        var listaLibros = datal.map((libro, index) => {
+            if(libro.categoria_id === data[actualCategoria].id){
+                let l = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(datap,'id',libro.persona_id,'nombre')} categoria={nameToX(data,'id',libro.categoria_id,'nombre')} /></>;
+                return ( 
+                    // eslint-disable-next-line react/style-prop-object
+                    <Card infill = {l} key ={"libro" + libro.id}/>
+                );
+            }
+        });    
+        listaCategoria = <> <Card infill = {infill} key ={"categoria" + data[actualCategoria].id}/>{listaLibros}</>;
+    }
     return(
       <>
           <IngresarCategoria/>
