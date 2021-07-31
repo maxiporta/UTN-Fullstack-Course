@@ -48,15 +48,16 @@ export default function ListadoLibro() {
             prestar="DEVOLVER";
             pd = devolver;
         }
-        var infill = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(data.persona,'id',libro.persona_id,'nombre')} categoria={nameToX(data.categoria,'id',libro.categoria_id,'nombre')} />
+        var infill = <div class = "backg"><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(data.persona,'id',libro.persona_id,'alias')} categoria={nameToX(data.categoria,'id',libro.categoria_id,'nombre')} />
                         <BotonModi class={"btn btn-dark"} index={index} id={libro.id} form={form} ruta={url} flag={flag} setFlag={setFlag} />
-                        <Boton class = "btn btn-outline-primary" text = {prestar} function={() => pd(libro, lib.persona)}/>
+                        <Boton class = "btn btn-secondary" text = {prestar} function={() => pd(libro, lib.persona)}/>
                         <Boton class = "btn btn-danger" text = "BORRAR" function={() => handleDelete(url + libro.id, okText)}/>
                         <br></br>
-                        {options}
-                        {modificando}</>;
+                        <div dis = "dis">{options}</div>
+                        <div dis = "dis">{modificando}</div>
+                        </div>;
 
-        return ( 
+        return (
             <Card infill = {infill} keys ={"libro" + libro.id}/>
         );
     });

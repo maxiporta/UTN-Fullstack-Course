@@ -51,7 +51,6 @@ body{
 
 /*book*/
 
-
 .book {
   transform-style: preserve-3d;
   position: relative;
@@ -76,7 +75,7 @@ body{
 .front, .back {
   color:white ;
   font-family	:serif;
-  background: navy;
+  background: rgb(3,4,77);
   font-size: 20px;
   text-align: center;
   vertical-align: middle;

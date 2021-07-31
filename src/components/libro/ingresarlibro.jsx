@@ -35,7 +35,7 @@ export default function IngresarLibro() {
             <form className="ingreso_form">
                 <div className="inputs">
                     <Libroformulario  setLibro ={setLibro} libr={libr} datap={data.persona} datac={data.categoria}/>
-                    <Boton text="Enviar" function={handleSubmit}/>
+                    <Boton class="btn btn-primary btn-sm" text="Enviar" function={handleSubmit}/>
                 </div>
             </form>
             </div>

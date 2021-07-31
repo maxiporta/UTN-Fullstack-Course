@@ -22,7 +22,7 @@ export default function IngresarCategoria() {
             <h3>Ingresar nueva categoria</h3> 
             <form>
                 <EntradaDeTexto placeholder = "Nombre" id="nombre" value={nombre} function={e => setNombre(e.target.value)}/>
-                <Boton text="Enviar" function={handleSubmit}/>
+                <Boton class="btn btn-primary" text="Enviar" function={handleSubmit}/>
             </form>
         </>
     );

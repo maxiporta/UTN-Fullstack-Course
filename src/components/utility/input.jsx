@@ -1,9 +1,12 @@
 import React from 'react';
+import "./style.css";
 
 export default function entradaDeTexto(props) {
     let label = "";
-    let input = <>
-        <input required type={props.type} id={props.id} value={props.nombre} onChange={props.function} placeholder={props.placeholder} className={props.className} key={props.keys}/></>
+    let input = 
+        <>
+        <input class = "form-control" required type={props.type} id={props.id} value={props.nombre} onChange={props.function} placeholder={props.placeholder} className={props.className} key={props.keys}/>
+        </>
     if(props.label !== "default")
     {
         label = <label>{props.label}</label>;
@@ -17,14 +20,14 @@ export default function entradaDeTexto(props) {
             );
         });
         input = <>
-            <select type={props.type} id={props.id} value={props.nombre} onChange={props.function} placeholder={props.placeholder} className={props.className} key={props.keys}>
+            <select class = "form-select form-select-sm" type={props.type} id={props.id} value={props.nombre} onChange={props.function} placeholder={props.placeholder} className={props.className} key={props.keys}>
             {option}
         </select></>
     }
     return(
         <>
             {label}
-            {input}
+                {input}
         </>
     );
 }

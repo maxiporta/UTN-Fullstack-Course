@@ -4,16 +4,17 @@ import Boton from '../utility/boton';
 import handleDelete from '../../middleware/delete';
 
 export default function InfillCategoria(props) {
-    var infill = <><p>{props.categoria.nombre}</p>
-                    <BotonModi class={"btn btn-primary"} index={props.index} id={props.categoria.id} form={props.form} ruta={props.url} flag={props.flag} setFlag={props.setFlag} />
-                    <Boton class = "btn btn-outline-primary" text={props.text} function={() => {props.verLibro(props.index)}}/>
+    var infill = <><p class="whites">{props.categoria.nombre}</p>
+                    <div class="abajo">
+                    <BotonModi class={"btn btn-dark"} index={props.index} id={props.categoria.id} form={props.form} ruta={props.url} flag={props.flag} setFlag={props.setFlag} />
+                    <Boton class = "btn btn-secondary" text={props.text} function={() => {props.verLibro(props.index)}}/>
                     <Boton class = "btn btn-danger" text="BORRAR" function={() => {handleDelete(props.url + props.categoria.id, props.okText);
                                                                                                           props.verLibro(null);}}/>
-                    {props.botom}</>;
+                    <div class= "dis">{props.botom}</div></div></>;
     return (
-        <>
+        <div class="backgc">
             {infill}
-        </>
+        </div>
     );
 }
 InfillCategoria.defaultProps = {

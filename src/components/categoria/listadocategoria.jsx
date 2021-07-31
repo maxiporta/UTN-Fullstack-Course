@@ -32,7 +32,7 @@ export default function ListadoCategoria() {
       }
       const infill = <InfillCategoria botom={modificando} text={"VER LIBROS"} categoria={data.categoria[index]} index={index} url = {url} form = {form} flag={flag}  okText={okText} setFlag={setFlag} verLibro ={setActualCategoria}/>;
       return (
-        <Card infill = {infill} keys ={"categoria" + categoria.id}/>
+          <Card infill = {infill} keys ={"categoria" + categoria.id}/>
       );
     });
     if(actualCategoria !== null)

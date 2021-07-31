@@ -9,7 +9,7 @@ export default function MostrarLibro(props) {
     var listaLibros = data.libro.map((libro, index) => {
         console.log(props.compareValue)
         if((libro[props.typeCompare] === props.compareValue)|| !props.filtro){
-            let l = <><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(data.persona,'id',libro.persona_id,'nombre')} categoria={nameToX(data.categoria,'id',libro.categoria_id,'nombre')} /></>;
+            let l = <div class = "backg"><Libro nombre={libro.nombre} descripcion={libro.descripcion} persona={nameToX(data.persona,'id',libro.persona_id,'nombre')} categoria={nameToX(data.categoria,'id',libro.categoria_id,'nombre')} /></div>;
             return ( 
                 <Card infill = {l} keys ={"libro" + libro.id}/>
             );
