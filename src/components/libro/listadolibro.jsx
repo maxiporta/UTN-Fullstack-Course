@@ -23,7 +23,7 @@ export default function ListadoLibro() {
     };
 
     const devolver = (form)=> {
-        handlePut(urlroot + port +urllibro+"/devolver/"+form.id, "El libro fue devuelto", form);
+        handlePut(urlroot + port +urllibro+"devolver/"+form.id, "El libro fue devuelto", form);
     }
     const presta = (form, persona)=>{
         form.persona_id = persona;
@@ -31,7 +31,7 @@ export default function ListadoLibro() {
         {
             form.persona_id = data.persona[0].id;
         }
-        handlePut(urlroot + port +urllibro +"/prestar/"+form.id, "El libro fue prestado", form);
+        handlePut(urlroot + port +urllibro +"prestar/"+form.id, "El libro fue prestado", form);
     }
     let listaLibro = <p> no hay libros</p>;
     if(data.libro !== undefined){
