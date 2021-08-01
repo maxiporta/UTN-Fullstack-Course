@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import handleSubmitPost from "../../middleware/post";
 import EntradaDeTexto from '../utility/input';
 import Boton from '../utility/boton';
+import { urlcategoria, urlroot, port} from '../../urls';
 
 
 export default function IngresarCategoria() {
 
     const [nombre, setNombre] = useState('');
-    const url = 'http://localhost:3000/categoria'
+    const url = urlroot + port + urlcategoria;
     const okText = "Categoria agregada con exito";
     const form = {
         nombre: nombre

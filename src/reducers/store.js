@@ -3,6 +3,7 @@ import handleGet from '../middleware/get';
 import handlePut from '../middleware/put';
 import thunk from 'redux-thunk';
 import libro from '../components/libro/libro';
+import { urlroot,urlpersona,urlcategoria,urllibro,port } from '../urls';
 
 const estadoInicial  = {
     persona: [],
@@ -37,15 +38,15 @@ function reducer(state = estadoInicial, action) {
 }
 export function getty(text){
     return async function gety(dispatch, getState) {
-        const rl = await handleGet("http://localhost:3000/libro/",aux);
-        const rc = await handleGet("http://localhost:3000/categoria/",aux);
-        const rp = await handleGet("http://localhost:3000/persona/",aux);
+        const rl = await handleGet(urlroot+port+urllibro,aux);
+        const rc = await handleGet(urlroot+port+urlcategoria,aux);
+        const rp = await handleGet(urlroot+port+urlpersona,aux);
         dispatch({ type: 'UPDATE', libro: rl, persona: rp, categoria: rc })
     }
 }
 export function puttyl(text, form,id){
     return async function putyl(dispatch, getState) {
-        handlePut("http://localhost:3000/libro/"+id, text, form);
+        handlePut(urlroot+port+urllibro+id, text, form);
         dispatch({ type: 'ADDL', libro: form})
     }
 }

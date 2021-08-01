@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import handleSubmitPost from "../../middleware/post";
 import Boton from '../utility/boton';
 import EntradaDeTexto from '../utility/input';
-
+import { urlroot,port,urlpersona } from '../../urls';
 
 //Formulario para ingresar nueva persona
 export default function IngresarPersona() {
 
     const [persona, setPersona] = useState('');
-    const url = 'http://localhost:3000/persona'
+    const url = urlroot +port + urlpersona;
     const okText = "Persona creada";
     const form = {
         nombre: persona.nombre,

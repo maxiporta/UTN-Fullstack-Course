@@ -3,12 +3,14 @@ import handleSubmitPost from "../../middleware/post";
 import Boton from '../utility/boton';
 import { useSelector } from 'react-redux';
 import Libroformulario from './libroformulario';
+import { urllibro, urlroot, port} from '../../urls';
+
 
 export default function IngresarLibro() {
 
     const [libr, setLibro] = useState({categoria: ''});
     const data = useSelector((state) => state);
-    const url = 'http://localhost:3000/libro'
+    const url = urlroot + port +urllibro;
     const okText = "Libro ingresado";
     const form = {
         nombre: libr.nombre,
