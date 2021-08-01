@@ -2,7 +2,6 @@ import React from 'react';
 import BotonModi from '../utility/botonmodificar';
 import Boton from '../utility/boton';
 import handleDelete from '../../middleware/delete';
-import { categoria, urlroot, port} from '../../urls';
 
 export default function InfillCategoria(props) {
     var infill = <><p class="whites">{props.categoria.nombre}</p>
