@@ -4,7 +4,6 @@ export default async function handleGet(url, setdata) {
       try{
         const respuesta = await axios.get(url);
         if (respuesta.status === 200 ){
-          console.log(respuesta.data);
           setdata(respuesta.data);
           return respuesta.data;
         }
